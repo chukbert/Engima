@@ -1,0 +1,94 @@
+.row {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+h4 {
+  font-weight: normal;
+}
+
+hr {
+  border: 1px solid #d1d1d1;
+  margin-right: 80px;
+}
+
+.row img {
+  float: left;
+  border-radius: 10px;
+}
+
+.row .movie-container {
+  float: none;
+  display: block;
+  text-align: justify;
+  width: 100%;
+  margin: 0px;
+  padding-left: 210px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 50px;
+}
+
+.row .synopsis {
+  text-align: justify;
+  width: 70%;
+}
+
+.row a {
+  float: right;
+  padding: 4px 10px;
+  margin: 6px 6px 6px 6px;
+  background: white;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  color: #00c0ed;
+}
+
+.row a i {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.row a:hover {
+  background: #ddd;
+}
+
+.pagination-container {
+  margin-right: 80px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  cursor: pointer;
+  color: #00c0ed;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color.3s;
+  border: 2px solid #00c0ed;
+  border-radius: 5px;
+  margin: 0 4px;
+}
+
+.pagination .adv {
+  border: none;
+}
+
+.pagination .disabled {
+  color: #a8a8a8
+}
+
+.pagination a.active {
+  color: #a6a6a6;
+  border: 2px solid #a6a6a6;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}

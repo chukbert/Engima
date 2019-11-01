@@ -1,0 +1,177 @@
+.row {
+  margin-top: 28px;
+  margin-bottom: 32px;
+}
+
+.small {
+  font-size: 0.8em !important;
+}
+
+.paper {
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.paper h3 {
+  margin-top: 4px;
+}
+
+.left {
+  float: left;
+  width: 50%;
+}
+
+.right {
+  float: right;
+  width: 40%;
+  margin-right: 80px;
+}
+
+.movie-rating {
+  font-size: 1.2em;
+}
+
+#movie-rating {
+  color: #5d5d5d;
+}
+
+.movie-rating-out-of {
+  font-size: 0.8em;
+}
+
+.movie-description {
+  color: #288ea5;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+}
+
+.vl {
+  margin-left: 11px;
+  margin-right: 12px;
+  border-left: 1px solid;
+  height: 500px;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.thirty {
+  width: 30%;
+}
+
+.twenty {
+  width: 20%;
+}
+
+.black {
+  color: black;
+}
+
+th,
+td {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-weight: bold;
+  font-size: 0.8em;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  color: #605f5d;
+}
+
+td {
+  color: #838383;
+}
+
+h4 {
+  color: #6c6c6c;
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+hr {
+  border: 1px solid #d1d1d1;
+}
+
+.row img {
+  float: left;
+  border-radius: 10px;
+}
+
+.row .movie-container {
+  float: none;
+  display: block;
+  text-align: justify;
+  width: 100%;
+  margin: 0px;
+  padding-left: 300px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 50px;
+}
+
+.row .synopsis {
+  text-align: justify;
+  width: 80%;
+}
+
+td button {
+  float: right;
+  background: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  color: #00c0ed;
+}
+
+td button:hover {
+  background: #ddd;
+}
+
+td button i {
+  margin-left: 4px;
+}
+
+.unavailable {
+  color: red;
+  cursor: auto;
+}
+
+.row .profile-picture {
+  width: 70px;
+  height: 70px;
+  border-radius: 50% !important;
+}
+
+.row .review-container {
+  float: none;
+  display: block;
+  text-align: justify;
+  width: 100%;
+  margin: 0px;
+  padding-left: 100px;
+  margin-bottom: 8px;
+}
+
+#reviews .row {
+  padding-right: 0px;
+  margin-bottom: 16px;
+}
+
+#comment {
+  color: #868686;
+  font-size: 0.8em;
+  margin-top: 8px;
+  margin-bottom: 0px;
+}
+
+#username {
+  color: #868686;
+  margin-bottom: 8px;
+}

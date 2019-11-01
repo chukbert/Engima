@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>User Review</title>
+
+<body>
+    <div class="header" id="header">
+        <a href="/" class="logo"><span>Engi</span>ma</a>
+        <div id="search-container">
+            <form id="search-bar" action="/search">
+                <input type="text" placeholder="Search movie" name="name">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <div class="header-right">
+            <a href="/transactions">Transactions</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="content-container">
+      <div class="review-title">
+          <i onclick="window.history.back()" class="fa fa-chevron-left fa-2x"></i>
+          <span class="reviewed-movie-name">
+              <h3> </h3>
+          </span>
+      </div>
+      <div id="review-detail">
+          <div class="rating">
+              <span class="add-rating">Add Rating</span>
+              <span class="star-rating">
+              </span>
+          </div>
+          <div class="review">
+              <span class="add-review">Add Review</span>
+              <textarea id="content-review" name="content-review" placeholder="Write something.."></textarea>
+          </div>
+          <div class="button" id="button">
+              <button class="cancel" type="submit"><a href="/transactions">Cancel</a></button>
+              <button class="submit" onclick="submit()"></button>
+          </div>
+        </div>
+    </div>
+</body>
+</head>
+</html>
+
+<script src="script.js" type="text/javascript"></script>
+<!-- <script src="/scripts/shouldlogin.js" type="text/javascript"></script> -->

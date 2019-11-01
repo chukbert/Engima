@@ -1,0 +1,56 @@
+.paper {
+  transform: translateY(2%);
+  margin-bottom: 20px;
+}
+
+.filepath {
+  border-radius: 5px;
+  border-style: solid;
+  border-color: #d0d0d0;
+  border-width: 1px;
+  height: 40px;
+  padding-top: 8px;
+  padding-left: 16px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+  width: 50%;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  border: none;
+  border-radius: 5px;
+  padding-top: 8px;
+  text-align: center;
+  height: 40px;
+  font-weight: 700;
+  color: white;
+  background-color: #b5b5b5;
+  display: inline-block;
+  width: 50%;
+  cursor: pointer;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #a0a0a0;
+}
+
+.form .error {
+  color: red;
+  margin-top: 0;
+  font-size: 8pt;
+  font-weight: bold;
+}
+
+.form .valid {
+  border-color: #00bb00 !important;
+}

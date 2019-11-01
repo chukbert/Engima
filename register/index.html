@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="/login/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class="paper">
+        <div class="title">
+            <h2>Welcome to <b>Engi</b>ma!</h2>
+        </div>
+        <form class="form" enctype="multipart/form-data">
+            <p>Username</p>
+            <input placeholder="joe.johndoe" type="text" name="username" onkeydown="validate(this)">
+            <p class="error" id='error-username'></p>
+            <p>Email Address</p>
+            <input placeholder="joe@email.com" type="text" name="email" onkeydown="validate(this)">
+            <p class="error" id='error-email'></p>
+            <p>Phone Number</p>
+            <input placeholder="+62813xxxxxxxx" type="text" name="phoneNumber" onkeydown="validate(this)">
+            <p class="error" id='error-phoneNumber'></p>
+            <p>Password</p>
+            <input id='password' placeholder="make as strong as possible" type="password" name="password"
+                onkeydown="validate(this)">
+            <p class="error" id='error-password'></p>
+            <p>Confirm Password</p>
+            <input id='confirmPassword' placeholder="same as above" type="password" name="confirmPassword"
+                onkeydown="validate(this)">
+            <p class="error" id='error-confirmPassword'></p>
+            <p>Profile Picture</p>
+            <div style="display: flex">
+                <div class="filepath"></div>
+                <input type="file" name="file" id="file" class="inputfile" accept="image/*" />
+                <label for="file">Browse</label>
+            </div>
+            <p class="error" id='error-file'></p>
+            <button class="button" type="submit">Register</button>
+        </form>
+        <div class="footer">
+            <p><b>Already have account? <a href="/login">Login here</a><b></p>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script src="/scripts/disablelogin.js" type="text/javascript"></script>
+<script src="/scripts/utils.js" type="text/javascript"></script>
+<script src="script.js" type="text/javascript"></script>

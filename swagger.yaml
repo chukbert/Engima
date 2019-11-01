@@ -1,0 +1,409 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Engi API Docs"
+host: "localhost"
+basePath: "/api"
+tags:
+  - name: "auth"
+    description: "Authentication details"
+  - name: "userbase"
+    description: "Information about the number of user"
+  - name: "booking"
+    description: "Everything about booking a movie ticket"
+  - name: "detail"
+    description: "The details of an available movie"
+  - name: "search"
+    description: "Looking for a specific movie?"
+  - name: "home"
+    description: "What's currently being played"
+  - name: "transactions"
+    description: "See how often you bought tickets"
+  - name: "review"
+    description: "Did you like the movie? Did you not?"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /auth.php:
+    get:
+      tags:
+        - "auth"
+      summary: "Gets logged-in authentication status from cookie"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Auth"
+  /login.php:
+    post:
+      tags:
+        - "auth"
+      summary: "Logs in and puts cookie to database"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      produces:
+        - "application/json"
+      parameters:
+        - in: formData
+          name: username
+          type: "string"
+        - in: formData
+          name: password
+          type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Auth"
+        400:
+          description: "Invalid input or user does not exist"
+        403:
+          description: "Wrong password"
+  /register.php:
+    post:
+      tags:
+        - "auth"
+      summary: "Creates a new user, logs in, and puts cookie to database"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+        - in: formData
+          name: username
+          type: "string"
+        - in: formData
+          name: email
+          type: "string"
+        - in: formData
+          name: phoneNumber
+          type: "string"
+        - in: formData
+          name: password
+          type: "string"
+        - in: formData
+          name: file
+          type: file
+          description: Profile picture of the user.
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Auth"
+        400:
+          description: "Invalid input"
+        500:
+          description: "Internal server error"
+  /userbase.php:
+    get:
+      tags:
+        - "userbase"
+      summary: "Gets the number of users with specific constraints"
+      produces:
+        - "application/json"
+      parameters:
+        - in: query
+          name: username
+          type: "string"
+        - in: query
+          name: email
+          type: "string"
+        - in: query
+          name: phoneNumber
+          type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              count:
+                type: integer
+  /booking.php:
+    get:
+      tags:
+        - "booking"
+      summary: "Gets seat data of a schedule"
+      produces:
+        - "application/json"
+      parameters:
+        - in: query
+          name: id
+          description: "idSchedule"
+          type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: string
+              dateTime:
+                type: string
+              maxSeats:
+                type: integer
+              price:
+                type: integer
+              takenSeats:
+                type: array
+                items:
+                  type: integer
+    post:
+      tags:
+        - "booking"
+      summary: "Buys a movie ticket of specific schedule"
+      produces:
+        - "application/json"
+      parameters:
+        - in: body
+          name: id
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              seat:
+                type: integer
+      responses:
+        200:
+          description: "Successful operation, returns next data"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: string
+              data:
+                type: "object"
+                properties:
+                  title:
+                    type: string
+                  dateTime:
+                    type: string
+                  maxSeats:
+                    type: integer
+                  price:
+                    type: integer
+                  takenSeats:
+                    type: array
+                    items:
+                      type: integer
+  /detail.php:
+    get:
+      tags:
+        - "detail"
+      summary: "Gets the detail of a movie"
+      produces:
+        - "application/json"
+      parameters:
+        - in: query
+          name: id
+          description: "idFilm"
+          type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              idFilm:
+                type: integer
+              title:
+                type: string
+              posterUrl:
+                type: string
+              durationMinutes:
+                type: integer
+              releaseDate:
+                type: string
+              synopsis:
+                type: string
+              genres:
+                type: array
+                items:
+                  type: string
+              schedules:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    idSchedule:
+                      type: integer
+                    date:
+                      type: string
+                    time:
+                      type: string
+                    availableSeats:
+                      type: array
+                      items:
+                        type: integer
+              rating:
+                type: number
+              reviews:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: integer
+                    rating:
+                      type: integer
+                    comment:
+                      type: string
+                    profilePicture:
+                      type: string
+  /search.php:
+    get:
+      tags:
+        - "search"
+      summary: "Gets list of movies by title"
+      produces:
+        - "application/json"
+      parameters:
+        - in: query
+          name: name
+          description: "Part of the movie title"
+          type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: object
+              properties:
+                idFilm:
+                  type: string
+                title:
+                  type: string
+                posterUrl:
+                  type: string
+                rating:
+                  type: number
+                synopsis:
+                  type: string
+  /home.php:
+    get:
+      tags:
+        - "home"
+      summary: "Gets list of movies running today"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: object
+              properties:
+                idFilm:
+                  type: string
+                title:
+                  type: string
+                posterUrl:
+                  type: string
+                rating:
+                  type: number
+  /transactions.php:
+    get:
+      tags:
+        - "transactions"
+      summary: "Gets list of movies running today"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                idTransaction:
+                  type: integer
+                title:
+                  type: string
+                posterUrl:
+                  type: string
+                dateTime:
+                  type: string
+                reviewStatus:
+                  type: string
+                durationMinutes:
+                  type: integer
+  /review.php:
+    get:
+      tags:
+        - "review"
+      summary: "Gets review of a specific idTransaction"
+      produces:
+        - "application/json"
+      parameters:
+        - in: query
+          name: id
+          description: "idTransaction"
+          type: integer
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: object
+            properties:
+              idTransaction:
+                type: integer
+              title:
+                type: string
+              rating:
+                type: string
+              comment:
+                type: string
+              submitted:
+                type: boolean
+    post:
+      tags:
+        - "review"
+      summary: "Creates review of a specific idTransaction"
+      produces:
+        - "application/json"
+      parameters:
+        - in: body
+          name: id
+          description: "idTransaction"
+          schema:
+            type: object
+            properties:
+              idTransaction:
+                type: integer
+              rating:
+                type: string
+              comment:
+                type: string
+      responses:
+        201:
+          description: "Successful operation"
+    delete:
+      tags:
+        - "review"
+      summary: "Deletes review of a specific idTransaction"
+      produces:
+        - "application/json"
+      parameters:
+        - in: query
+          description: idTransaction
+          name: id
+          type: integer
+      responses:
+        200:
+          description: "Successful operation"
+definitions:
+  Auth:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+      user:
+        type: "string"

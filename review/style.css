@@ -1,0 +1,132 @@
+.row {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.fa-chevron-left {
+  margin-top: 4px;
+  color: #00c0ed;
+  float: left;
+  cursor: pointer;
+}
+
+.review-title {
+  margin-top: 24px;
+  margin-bottom: 36px;
+}
+
+.reviewed-movie-name {
+  position: relative;
+  left: 40px;
+}
+
+.reviewed-movie-name h3 {
+  padding-top: 8px;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+#review-detail {
+  margin-top: 5%;
+  margin-left: 15%;
+  margin-right: 15%;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+.rating {
+  margin-bottom: 16px;
+}
+
+.star-rating {
+  margin-left: 25px;
+  position: relative;
+  cursor: pointer !important;
+}
+.star-rating:not(:checked){
+  color: #ccc;
+}
+.checked {
+  color: orange;
+}
+
+.review {
+  margin-top: 24px;
+  margin-right: 80px;
+  display: block;
+}
+
+.add-rating, .add-review {
+  float : left;
+}
+
+#content-review {
+    height: 100px;
+    margin-left: 108px;
+    margin-right: 80px;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-top: 0;
+    margin-bottom: 0;
+    resize: vertical;
+    display: block;
+}
+
+@media screen and (max-width: 300px) {
+  #content-review {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+::placeholder {
+  letter-spacing: 0.2px;
+  font-family: "Lato", sans-serif;
+  color: #c0c0c0;
+}
+
+#button {
+  margin-right: -30px;
+  margin-top: 25px;
+  float: right;
+}
+
+.cancel, .submit {
+  padding: 8px 18px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: white;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.submit {
+  background-color: #00c0ed;
+  color: white;
+}
+
+.cancel a{
+  text-decoration: none;
+  color: black;
+}
+
+.cancel:hover, .submit:hover, .cancel:active, .submit:active{
+  background-color: #00c0ed;
+  color: white;
+  border-color: #00c0ed;
+}
+
+.submit:hover, .submit:active {
+  background-color: #00a0ed;
+}
+
+#star {
+  margin-right: 5px;
+}
