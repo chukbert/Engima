@@ -3,8 +3,9 @@ require_once('utils/db.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $idFilm = '';
-    if (isset($_GET['id']))
+    if (isset($_GET['id'])) {
         $idFilm = $db->real_escape_string($_GET['id']);
+    }
 
     $sql = "SELECT idFilm, title, posterUrl, durationMinutes, releaseDate, synopsis
             FROM film WHERE film.idFilm = $idFilm";
@@ -13,11 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if ($response = $result->fetch_assoc()) {
         $response['releaseDate'] = date('F j, Y', strtotime($response['releaseDate']));
 
-        $sql = "SELECT genre FROM filmgenre, genre WHERE filmgenre.idFilm = $idFilm AND filmGenre.idGenre = genre.idGenre";
+        $sql = "SELECT genre FROM filmgenre, genre 
+        WHERE filmgenre.idFilm = $idFilm AND filmGenre.idGenre = genre.idGenre";
         $result = $db->query($sql);
         $genres = array();
-        while ($genre = $result->fetch_assoc())
+        while ($genre = $result->fetch_assoc()) {
             $genres[] = $genre['genre'];
+        }
         $response['genres'] = $genres;
 
         $sql = "SELECT schedule.idSchedule, dateTime, (maxSeats - count(seatNumber)) as availableSeats
@@ -54,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $totalRating += $review['rating'];
             $reviews[] = $review;
         }
-        $response['rating'] = sprintf('%0.2f',  $totalRating / count($reviews));
+        $response['rating'] = sprintf('%0.2f', $totalRating / count($reviews));
         $response['reviews'] = $reviews;
 
         echo json_encode($response);

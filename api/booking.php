@@ -24,21 +24,24 @@ function get_schedule_information($idSchedule)
 
     $result = $db->query($sql);
     $response['takenSeats'] = array();
-    while ($data = $result->fetch_assoc())
+    while ($data = $result->fetch_assoc()) {
         $response['takenSeats'][] = (int) $data['seatNumber'];
+    }
 
     return $response;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $idSchedule = '';
-    if (isset($_GET['id']))
+    if (isset($_GET['id'])) {
         $idSchedule = $db->real_escape_string($_GET['id']);
-    else return http_response_code(404);
+    } else {
+        return http_response_code(404);
+    }
 
     echo json_encode(get_schedule_information($idSchedule));
     return http_response_code(200);
-} else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_POST = json_decode(file_get_contents('php://input'), true);
     if (isset($_POST['id']) && isset($_POST['seat'])) {
         $idUser = get_user()['idUser'];

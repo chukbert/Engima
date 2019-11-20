@@ -18,8 +18,9 @@ function get_cookie()
 {
     global $LOGIN_COOKIE_NAME;
 
-    if (!isset($_COOKIE[$LOGIN_COOKIE_NAME]))
+    if (!isset($_COOKIE[$LOGIN_COOKIE_NAME])) {
         return null;
+    }
     return $_COOKIE[$LOGIN_COOKIE_NAME];
 }
 
@@ -28,8 +29,9 @@ function get_cookie_expiry_time()
     $cookie = get_cookie();
     $auth = json_decode(base64_decode($cookie));
 
-    foreach ($auth as $_ => $value)
+    foreach ($auth as $_ => $value) {
         $expiry_time = $value;
+    }
 
     return $expiry_time;
 }

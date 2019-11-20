@@ -8,7 +8,6 @@ $response = array(
 );
 
 if ($cookie) {
-
     $expiry_time = get_cookie_expiry_time();
 
     if (time() < $expiry_time) {
