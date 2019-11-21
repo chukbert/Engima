@@ -7,6 +7,6 @@ linter:
     stage: lint
     image: pipelinecomponents/php-codesniffer:latest
     script:
-        - php phpcs.phar --extentions=php --standard=PSR2
+        - php phpcbf.phar --extentions=php --standard=PSR2
     tags:
         - lint
