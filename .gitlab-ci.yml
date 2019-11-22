@@ -2,6 +2,7 @@ image: php:7.2
 
 stage:
     - lint
+    - deploy
     
 linter:
     stage: lint
@@ -10,3 +11,10 @@ linter:
         - php phpcs.phar --extentions=php --standard=PSR2
     tags:
         - lint
+
+deployToAWS:
+    only:
+        - master
+    stage: deploy
+    script:
+        - bash deploy/deploy.sh
