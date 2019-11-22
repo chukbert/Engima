@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             ) t, schedule
             WHERE
                 t.idFilm = schedule.idFilm AND
-                (dateTime BETWEEN NOW() AND DATE_ADD(CURDATE(), INTERVAL 1 DAY))";
+                (dateTime BETWEEN NOW() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY))";
     
     $result = $db->query($sql);
 
