@@ -13,7 +13,7 @@ request.onload = () => {
 
 function loadInitialData() {
   // Movie Detail
-  document.getElementById("movie-poster").src = data.posterUrl;
+  document.getElementById("movie-poster").src = data.poster;
   document.getElementById("movie-name").innerHTML = data.title;
   document.getElementById("movie-category").innerHTML = data.genres.join(", ");
   document.getElementById(

@@ -10,8 +10,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     $curl = curl_init();
 
+    $lastWeekDate = date_sub(date_create(), date_interval_create_from_date_string('7 days'));
+    $lastWeekDate = date_format($lastWeekDate, 'Y-m-d');
+    $currentDate = date_format(date_create(), 'Y-m-d');
+
     curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.themoviedb.org/3/movie/now_playing?page=1&language=en-US&api_key=7b0a11ef2d329f19bc4a57626fe8502e",
+        CURLOPT_URL => "https://api.themoviedb.org/3/discover/movie?api_key=7b0a11ef2d329f19bc4a57626fe8502e&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=".$lastWeekDate."&primary_release_date.lte=".$currentDate,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
