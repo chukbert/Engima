@@ -63,10 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 $sql = "INSERT INTO `schedule` (`idFilm`, `dateTime`, `maxSeats`, `price`) 
                         VALUES ('".$idFilm."', '".$date."', '20', '45000')";
                 if ($db->query($sql)) {
-                    $response['status'] = 'success';
                     http_response_code(201);
                 } else {
-                    $response['status'] = 'failed';
                     http_response_code(500);
                 }
             }
@@ -88,6 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $schedules[] = $schedule;
         }
         $film->schedules = $schedules;
+
+        
 
     //     $sql = "SELECT username, rating, comment, profilePicture
     //             FROM film JOIN schedule JOIN transaction JOIN review JOIN user

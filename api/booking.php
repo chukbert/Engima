@@ -6,15 +6,34 @@ function get_schedule_information($idSchedule)
 {
     global $db;
 
-    $sql = "SELECT title, dateTime, maxSeats, price
-            FROM film, schedule
-            WHERE
-                film.idFilm = schedule.idFilm AND
-                schedule.idSchedule = $idSchedule";
+    //title dari api
+    $sql = "SELECT dateTime, maxSeats, price, idFilm
+            FROM schedule
+            WHERE schedule.idSchedule = $idSchedule";
 
     $result = $db->query($sql);
     $response = $result->fetch_assoc();
     $response['dateTime'] = date('F j, Y - h:i A', strtotime($response['dateTime']));
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.themoviedb.org/3/movie/".$response['idFilm']."?api_key=7b0a11ef2d329f19bc4a57626fe8502e&language=en-US",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_POSTFIELDS => "{}",
+    ));
+
+    $resp = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+    $movie = json_decode($resp, true);
+
+    $response['title'] = $movie["original_title"];
 
     $sql = "SELECT seatNumber
             FROM transaction, schedule
