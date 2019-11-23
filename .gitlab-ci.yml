@@ -8,9 +8,7 @@ linter:
     stage: lint
     image: pipelinecomponents/php-codesniffer:latest
     script:
-        # - php phpcs.phar --extentions=php --standard=PSR2
-    tags:
-        - lint
+        - php phpcs.phar --extentions=php --standard=PSR2
 
 # deployToAWS:
 #     only:
