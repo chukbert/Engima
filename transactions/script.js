@@ -1,19 +1,22 @@
 const request = new XMLHttpRequest();
-const url = `http://13.229.224.101:3000/transaksi/28`;
+const url = `/api/transactions.php`;
 
-request.open("GET", url);
-request.send();
+request.open("GET", url, true);
+
 
 let data;
 request.onload = () => {
   data = JSON.parse(request.responseText);
-  loadInitialData();
+  console.log(data);
+  loadInitialData(data);
 };
 
-function loadInitialData() {
+request.send();
+
+function loadInitialData(data) {
   const contentElement = document.querySelector(".content-container");
   contentElement.innerHTML = '<h3>Transaction History</h3><h4></h4>';
-
+  
   data.forEach((transaction, i) => {
     const rowElement = document.createElement("div");
     rowElement.setAttribute("class", "row");
@@ -50,29 +53,30 @@ function loadInitialData() {
     //   addEditElement.innerHTML = 'Add Review';
 
     // }
-    rowElement.appendChild(movieContainerElement);
+  //   rowElement.appendChild(movieContainerElement);
 
-    addEditElement.onclick = () => { window.location.href = `/review?id=${transaction.idTransaction}`; };
-    if (transaction.reviewStatus != 'disabled') rowElement.appendChild(addEditElement);
-    if (deleteElement) rowElement.appendChild(deleteElement);
+  //   addEditElement.onclick = () => { window.location.href = `/review?id=${transaction.idTransaction}`; };
+  //   if (transaction.reviewStatus != 'disabled') rowElement.appendChild(addEditElement);
+  //   if (deleteElement) rowElement.appendChild(deleteElement);
 
-    contentElement.appendChild(rowElement);
-    if (i < data.length - 1)
-      contentElement.appendChild(document.createElement("hr"));
+  //   contentElement.appendChild(rowElement);
+  //   if (i < data.length - 1)
+  //     contentElement.appendChild(document.createElement("hr"));
+  // });
   });
 }
 
-function deleteReview(idTransaction) {
-  const delRequest = new XMLHttpRequest();
-  const postData = {
-    id: idTransaction,
-  };
+// function deleteReview(idTransaction) {
+//   const delRequest = new XMLHttpRequest();
+//   const postData = {
+//     id: idTransaction,
+//   };
 
-  const reviewUrl = `/api/review.php`
-  delRequest.open("DELETE", reviewUrl);
-  delRequest.send(JSON.stringify(postData));
+//   const reviewUrl = `/api/review.php`
+//   delRequest.open("DELETE", reviewUrl);
+//   delRequest.send(JSON.stringify(postData));
 
-  delRequest.onload = () => {
-    window.location.href = '/transactions';
-  };
-}
+//   delRequest.onload = () => {
+//     window.location.href = '/transactions';
+//   };
+// }
