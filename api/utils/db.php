@@ -1,7 +1,7 @@
 <?php
-$dbhost = "localhost";
+$dbhost = "35.240.201.66";
 $dbuser = "engima";
-$dbpass = "engimaengima";
+$dbpass = "123";
 $dbname = "WBDdatabase";
 
 global $db;
