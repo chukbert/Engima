@@ -62,10 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 $sql = "INSERT INTO `schedule` (`idFilm`, `dateTime`, `maxSeats`, `price`) 
                         VALUES ('".$idFilm."', '".$date."', '20', '45000')";
                 if ($db->query($sql)) {
-                    $response['status'] = 'success';
+                    // $film->$status = 'success';
                     http_response_code(201);
                 } else {
-                    $response['status'] = 'failed';
+                    // $film->$status = 'failed';
                     http_response_code(500);
                 }
             }
