@@ -17,7 +17,6 @@ function callAPI($method, $url, $data)
         curl_setopt($curl, CURLOPT_POST, 1);
         if ($data)
         {
-            var_dump($data);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(                                                                          
             'Content-Type: application/json',                                                                                
@@ -48,13 +47,12 @@ function callAPI($method, $url, $data)
 $bod = new stdClass();
 $bod->idUser = "5";
 $bod->akunVirtual = "3000";
-$bod->idFilm = "5";
+$bod->idFilm = "9";
 $bod->idSchedule = "15";
 $bod->seatNumber = "2";
 $bod->waktu = "2019-11-18 00:00:00";
 $bod->status = "pending";
 
 // $resp = callAPI("POST", "http://localhost:3000/transaksi", json_encode($bod));
-$resp = callAPI("POST", "http://13.229.224.101:3000/transaksi", $bod);
-
-var_dump($resp);
+// $resp = callAPI("POST", "http://13.229.224.101:3000/transaksi", json_encode($bod));
+// callAPI("GET", "http://13.229.224.101:3000/seats/62", false);
