@@ -2,7 +2,7 @@
 $dbhost = "35.240.201.66";
 $dbuser = "engima";
 $dbpass = "123";
-$dbname = "WBDdatabase";
+$dbname = "WBDDatabase";
 
 global $db;
 
