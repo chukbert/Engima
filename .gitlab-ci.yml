@@ -1,6 +1,6 @@
 image: php:7.2
 
-stage:
+stages:
     - lint
     - deploy
     
