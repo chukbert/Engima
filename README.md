@@ -50,3 +50,4 @@ Setelah melakukan pembuatan Aplikasi web Engima, bioskop engi menjadi sangat lak
 6. Halaman Transaction History : 13517114
 
 
+Link deployment : [Engima](http://ec2-3-86-31-40.compute-1.amazonaws.com/engima/)
