@@ -3,11 +3,11 @@ const url = "/engima/api/login.php";
 const form = document.querySelector("form");
 
 form.addEventListener("submit", e => {
-  e.preventDefault();
-  const formData = new FormData(form);
+    e.preventDefault();
+    const formData = new FormData(form);
 
-  request.open("POST", url);
-  request.send(formData);
+    request.open("POST", url);
+    request.send(formData);
 
   request.onload = () => {
     if (request.status === 200) {

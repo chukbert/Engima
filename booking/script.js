@@ -32,70 +32,75 @@ function scheduleRefresher() {
   setTimeout(scheduleRefresher, 5000);
 }
 
-function loadScheduleDetail() {
-  const seats = Array.from({ length: data.maxSeats }, (_, k) => k + 1);
-  const chunkSeats = chunk(seats, 10);
+function loadScheduleDetail()
+{
+    const seats = Array.from({ length: data.maxSeats }, (_, k) => k + 1);
+    const chunkSeats = chunk(seats, 10);
 
-  const seatContainer = document.getElementById("seat-container");
-  seatContainer.innerHTML = "";
-  chunkSeats.forEach(chk => {
-    const seatRow = document.createElement("div");
-    seatRow.setAttribute("class", "seat-row");
+    const seatContainer = document.getElementById("seat-container");
+    seatContainer.innerHTML = "";
+    chunkSeats.forEach(chk => {
+        const seatRow = document.createElement("div");
+        seatRow.setAttribute("class", "seat-row");
 
-    chk.forEach(seat => {
-      const seatElement = document.createElement("a");
-      if (data.takenSeats.includes(seat))
-        seatElement.setAttribute("class", "disabled");
-      else seatElement.onclick = () => selectSeat(seat);
-      seatElement.innerHTML = seat;
-      seatRow.appendChild(seatElement);
-    });
+        chk.forEach(seat => {
+            const seatElement = document.createElement("a");
+            if (data.takenSeats.includes(seat)) {
+                seatElement.setAttribute("class", "disabled");
+            } else {
+                seatElement.onclick = () => selectSeat(seat);
+            }
+            seatElement.innerHTML = seat;
+            seatRow.appendChild(seatElement);
+        });
 
     seatContainer.appendChild(seatRow);
-  });
+    });
 
-  const screenElement = document.createElement("div");
-  screenElement.setAttribute("class", "screen-position");
-  screenElement.innerHTML = "Screen";
-  seatContainer.appendChild(screenElement);
+    const screenElement = document.createElement("div");
+    screenElement.setAttribute("class", "screen-position");
+    screenElement.innerHTML = "Screen";
+    seatContainer.appendChild(screenElement);
 
-  const bookingSummaryElement = document.querySelector(".booking-summary");
-  bookingSummaryElement.innerHTML = "<h3>Booking Summary</h3>";
+    const bookingSummaryElement = document.querySelector(".booking-summary");
+    bookingSummaryElement.innerHTML = "<h3>Booking Summary</h3>";
 
-  const defaultBookingTextElement = document.createElement("p");
-  defaultBookingTextElement.innerHTML =
+    const defaultBookingTextElement = document.createElement("p");
+    defaultBookingTextElement.innerHTML =
     "You haven't selected any seat yet. Please click on one of the seat provided.";
-  bookingSummaryElement.appendChild(defaultBookingTextElement);
+    bookingSummaryElement.appendChild(defaultBookingTextElement);
 
-  document.querySelector(".booking-movie h3").innerHTML = data.title;
-  document.querySelector(".booking-movie h4").innerHTML = data.dateTime;
+    document.querySelector(".booking-movie h3").innerHTML = data.title;
+    document.querySelector(".booking-movie h4").innerHTML = data.dateTime;
 }
 
-function selectSeat(number) {
-  const bookingSummaryElement = document.querySelector(".booking-summary");
-  bookingSummaryElement.innerHTML = "<h3>Booking Summary</h3>";
-  const childNodes = Array.from(bookingSummaryElement.childNodes);
-  childNodes
+function selectSeat(number)
+{
+    const bookingSummaryElement = document.querySelector(".booking-summary");
+    bookingSummaryElement.innerHTML = "<h3>Booking Summary</h3>";
+    const childNodes = Array.from(bookingSummaryElement.childNodes);
+    childNodes
     .slice(2, childNodes.length)
     .forEach(child => bookingSummaryElement.removeChild(child));
 
-  bookingSummaryElement.innerHTML += `<h4>${data.title}</h4>`;
-  bookingSummaryElement.innerHTML += `<h5>${data.dateTime}</h5>`;
+    bookingSummaryElement.innerHTML += `<h4>${data.title}</h4>`;
+    bookingSummaryElement.innerHTML += `<h5>${data.dateTime}</h5>`;
 
-  const formattedPrice = data.price
+    const formattedPrice = data.price
     .toString()
     .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
 
-  bookingSummaryElement.innerHTML += `<h4>Seat #${number}<span class="price">Rp ${formattedPrice}</span></h4>`;
-  bookingSummaryElement.innerHTML += `<button class="button" onclick="buyTicket(${number})">Buy Ticket</button>`;
+    bookingSummaryElement.innerHTML += `<h4>Seat #${number}<span class="price">Rp ${formattedPrice}</span></h4>`;
+    bookingSummaryElement.innerHTML += `<button class="button" onclick="buyTicket(${number})">Buy Ticket</button>`;
 
-  const seatElements = Array.from(document.querySelectorAll(".seat-row a"));
-  seatElements.forEach(seatElement => {
-    if (parseInt(seatElement.textContent) === number)
-      seatElement.setAttribute("class", "active");
-    else if (seatElement.getAttribute("class") === "active")
-      seatElement.removeAttribute("class");
-  });
+    const seatElements = Array.from(document.querySelectorAll(".seat-row a"));
+    seatElements.forEach(seatElement => {
+        if (parseInt(seatElement.textContent) === number) {
+            seatElement.setAttribute("class", "active");
+        } else if (seatElement.getAttribute("class") === "active") {
+            seatElement.removeAttribute("class");
+        }
+    });
 }
 
 function buyTicket(number) {
@@ -127,9 +132,9 @@ function buyTicket(number) {
   };
 }
 
-window.onclick = function(event) {
-  const modalElement = document.getElementById("modal");
-  if (event.target === modalElement) {
-    modalElement.classList.remove("shown");
-  }
+window.onclick = function (event) {
+    const modalElement = document.getElementById("modal");
+    if (event.target === modalElement) {
+        modalElement.classList.remove("shown");
+    }
 };

@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 require_once('utils/db.php');
 
 $LOGIN_COOKIE_NAME = "engimaUser";

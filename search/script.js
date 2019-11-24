@@ -9,26 +9,29 @@ request.send();
 
 let data;
 request.onload = () => {
-  data = JSON.parse(request.responseText);
-  loadInitialData();
+    data = JSON.parse(request.responseText);
+    loadInitialData();
 };
 
-function loadInitialData() {
-  document.querySelector(
-    ".content-container h3"
-  ).innerHTML = `Showing search result for keyword "${data.query}"`;
-  document.querySelector(".content-container h4").innerHTML = `${
-    data.results.length
-  } result${data.results.length > 1 ? "s" : ""} available`;
-  document.querySelector("title").innerHTML += ` &#8211; "${data.query}"`;
+function loadInitialData()
+{
+    document.querySelector(
+        ".content-container h3"
+    ).innerHTML = `Showing search result for keyword "${data.query}"`;
+    document.querySelector(".content-container h4") {
+        .innerHTML = `$
+        data.results.length
+    } result${data.results.length > 1 ? "s" : ""} available`;
+    document.querySelector("title").innerHTML += ` &#8211; "${data.query}"`;
 
-  loadPage(1);
+    loadPage(1);
 }
 
-function loadPage(page) {
-  const contentElement = document.querySelector(".content-container");
-  const childNodes = Array.from(contentElement.childNodes);
-  childNodes
+function loadPage(page)
+{
+    const contentElement = document.querySelector(".content-container");
+    const childNodes = Array.from(contentElement.childNodes);
+    childNodes
     .slice(4, childNodes.length)
     .forEach(child => contentElement.removeChild(child));
 

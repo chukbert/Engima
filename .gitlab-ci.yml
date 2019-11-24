@@ -8,11 +8,16 @@ linter:
     stage: lint
     image: pipelinecomponents/php-codesniffer:latest
     script:
-        - php phpcbf.phar --extensions=php --standard=PSR2 .
+        - phpcs --config-set default_standard Squiz
+        - phpcs --config-set report_format summary
+        - phpcs --config-set show_warnings 0
+        - phpcs --standard=PSR2 .
 
-# deployToAWS:
-#     only:
-#         - master
-#     stage: deploy
-#     script:
-#         - bash deploy/deploy.sh
+deployToAWS:
+    tags: 
+        - deploy
+    only:
+        - master
+    stage: deploy
+    script:
+        - bash deploy/deploy.sh

@@ -59,12 +59,22 @@ const authUrl = "/engima/api/auth.php";
 authRequest.open("GET", authUrl);
 authRequest.send();
 authRequest.onload = () => {
+<<<<<<< HEAD
   const auth = JSON.parse(authRequest.responseText);
   if (auth.status === "logout") window.location = "/engima/login";
   else {
     const userElement = document.querySelector(".greetings span");
     userElement.innerHTML = auth.user;
   }
+=======
+    const auth = JSON.parse(authRequest.responseText);
+    if (auth.status === "logout") {
+        window.location = "/login";
+    } else {
+        const userElement = document.querySelector(".greetings span");
+        userElement.innerHTML = auth.user;
+    }
+>>>>>>> 15c49ed4358dbf9c5c3bd1244411ae5b2a762403
 };
 
 const request = new XMLHttpRequest();
@@ -81,13 +91,14 @@ request.onload = () => {
 };
 
 loadInitialData();
-function loadInitialData() {
-  const chunkFilms = chunk(data, 5);
+function loadInitialData()
+{
+    const chunkFilms = chunk(data, 5);
 
-  const contentContainer = document.querySelector(".content-container");
-  chunkFilms.forEach(chk => {
-    const rowElement = document.createElement("div");
-    rowElement.setAttribute("class", "row");
+    const contentContainer = document.querySelector(".content-container");
+    chunkFilms.forEach(chk => {
+        const rowElement = document.createElement("div");
+        rowElement.setAttribute("class", "row");
 
     chk.forEach(film => {
       const colElement = document.createElement("a");
@@ -101,9 +112,9 @@ function loadInitialData() {
       colElement.innerHTML += `<div class="movie-name">${film.title}</div>`;
       colElement.innerHTML += `<div class="movie-rating"><span class="fa fa-star checked"></span>${film.score}</div>`;
 
-      rowElement.appendChild(colElement);
-    });
+            rowElement.appendChild(colElement);
+        });
 
     contentContainer.appendChild(rowElement);
-  });
+    });
 }
