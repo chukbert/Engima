@@ -48,6 +48,9 @@ Setelah melakukan pembuatan Aplikasi web Engima, bioskop engi menjadi sangat lak
 4. Halaman Buy Ticket : 13517114
 5. Halaman Transaction History : 13517093
 6. Halaman Transaction History : 13517114
-
+### DPPL
+1. Setting gitlab runner : 13517081
+2. CI/CD : 13517114, 13517093
+3. Eksplorasi dan setup deployment : 13517093
 
 Link deployment : [Engima](http://ec2-3-86-31-40.compute-1.amazonaws.com/engima/)
