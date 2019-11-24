@@ -1,13 +1,25 @@
 <?php
 require_once('utils/db.php');
 require_once('utils/cookie.php');
+require_once('utils/request.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $query = '';
     if (isset($_GET['id']))
         $query = $db->real_escape_string($_GET['id']);
-        
-	$sql = "SELECT transaction.idTransaction
+    
+    $user = get_user();
+    $getdata = callAPI("GET", "http://13.229.224.101:3000/transaksi/".$user["idUser"], "");  
+    $resp = json_decode($getdata, true);
+    
+    foreach ($resp["data"] as $trans) {
+        if ($trans["idTransaksi"] == $query) {
+            $sql = "SELECT idTransaksi FROM review WHERE idTransaksi = " . $query;
+
+        }
+    }
+
+    $sql = "SELECT transaction.idTransaction
             FROM transaction JOIN review
             WHERE
                 transaction.idTransaction = review.idTransaction AND
