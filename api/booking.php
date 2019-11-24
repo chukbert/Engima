@@ -1,6 +1,7 @@
 <?php
 require_once('utils/db.php');
 require_once('utils/cookie.php');
+require_once('utils/request.php');
 
 function get_schedule_information($idSchedule)
 {
@@ -35,17 +36,16 @@ function get_schedule_information($idSchedule)
 
     $response['title'] = $movie["original_title"];
 
-    $sql = "SELECT seatNumber
-            FROM transaction, schedule
-            WHERE
-                transaction.idSchedule = schedule.idSchedule AND
-                schedule.idSchedule = $idSchedule";
+    // $sql = "SELECT seatNumber
+    //         FROM transaction, schedule
+    //         WHERE
+    //             transaction.idSchedule = schedule.idSchedule AND
+    //             schedule.idSchedule = $idSchedule";
 
-    $result = $db->query($sql);
-    $response['takenSeats'] = array();
-    while ($data = $result->fetch_assoc()) {
-        $response['takenSeats'][] = (int) $data['seatNumber'];
-    }
+    // $result = $db->query($sql);
+    $resTaken = callAPI("GET", "http://13.229.224.101:3000/seats/".$idSchedule, false);
+    $taken = json_decode($resTaken, true);
+    $response['takenSeats'] = $taken["data"];
 
     return $response;
 }

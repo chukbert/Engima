@@ -22,6 +22,7 @@ function scheduleRefresher() {
   request.send();
 
   request.onload = () => {
+    console.log(request.responseText);
     data = JSON.parse(request.responseText);
     loadScheduleDetail();
     if (seatNumber && !data.takenSeats.includes(seatNumber))
