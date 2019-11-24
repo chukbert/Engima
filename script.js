@@ -59,7 +59,6 @@ const authUrl = "/engima/api/auth.php";
 authRequest.open("GET", authUrl);
 authRequest.send();
 authRequest.onload = () => {
-    <<<<<<< HEAD
     const auth = JSON.parse(authRequest.responseText);
     if (auth.status === "logout") {
         window.location = "/engima/login";
@@ -67,15 +66,6 @@ authRequest.onload = () => {
         const userElement = document.querySelector(".greetings span");
         userElement.innerHTML = auth.user;
     }
-    =======
-    const auth = JSON.parse(authRequest.responseText);
-    if (auth.status === "logout") {
-        window.location = "/login";
-    } else {
-        const userElement = document.querySelector(".greetings span");
-        userElement.innerHTML = auth.user;
-    }
-    >>>>>>> 15c49ed4358dbf9c5c3bd1244411ae5b2a762403
 };
 
 const request = new XMLHttpRequest();
