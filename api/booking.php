@@ -66,34 +66,27 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $idSchedule = $db->real_escape_string($_POST['id']);
         $seatNumber = $db->real_escape_string($_POST['seat']);
 
-        $sql = "SELECT idTransaction
-            FROM schedule, transaction
-            WHERE
-                schedule.idSchedule = transaction.idSchedule AND
-                schedule.idSchedule = $idSchedule AND
-                transaction.seatNumber = $seatNumber";
+        $sql = "SELECT dateTime, maxSeats, price, idFilm
+            FROM schedule
+            WHERE schedule.idSchedule = $idSchedule";
 
         $result = $db->query($sql);
+        $response = $result->fetch_assoc();
+
+        
+        $bod = new stdClass();
+        $bod->idUser = $idUser;
+        $bod->akunVirtual = "3000";
+        $bod->idFilm = $response['idFilm'];
+        $bod->idSchedule = $idSchedule;
+        $bod->seatNumber = $seatNumber;
+        $bod->waktu = date_format(date_create(), 'Y-m-d H:i:s');
+        $bod->status = "pending";
 
         $response = array();
-        $success = false;
-        if ($result && $result->num_rows === 0) {
-            $sql = "INSERT INTO transaction (idUser, idSchedule, seatNumber)
-                    VALUES ($idUser, $idSchedule, $seatNumber)";
+        $response['status'] = 'success';
+        $resp = callAPI("POST", "http://13.229.224.101:3000/transaksi", json_encode($bod));
 
-            if ($db->query($sql)) {
-                $response['status'] = 'success';
-                http_response_code(201);
-            } else {
-                $response['status'] = 'failed';
-                http_response_code(500);
-            }
-        } else {
-            $response['status'] = 'failed';
-            http_response_code(409);
-        }
-
-        $response['data'] = get_schedule_information($idSchedule);
         echo json_encode($response);
         return;
     }
