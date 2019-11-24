@@ -1,5 +1,5 @@
 const request = new XMLHttpRequest();
-const url = "/api/login.php";
+const url = "/engima/api/login.php";
 const form = document.querySelector("form");
 
 form.addEventListener("submit", e => {
@@ -11,7 +11,7 @@ form.addEventListener("submit", e => {
 
     request.onload = () => {
         if (request.status === 200) {
-            window.location = "/";
+            window.location = "/engima";
         }
     };
 });

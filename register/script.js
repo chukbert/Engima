@@ -27,7 +27,7 @@ const form = document.querySelector("form");
 form.addEventListener("submit", e => {
     e.preventDefault();
     const request = new XMLHttpRequest();
-    const url = "/api/register.php";
+    const url = "/engima/api/register.php";
     const form = document.querySelector("form");
 
     const fieldElements = document.querySelectorAll("form input");
@@ -46,7 +46,7 @@ if (isAllFieldsValid) {
 
     request.onload = () => {
         if (request.status === 201) {
-            window.location = "/";
+            window.location = "/engima";
         }
     };
 }
@@ -71,35 +71,10 @@ function _validate(element)
 
     if (value.match(validator.regex)) {
         const request = new XMLHttpRequest();
-        const apiUrl = "/api/userbase.php";
+        const apiUrl = "/engima/api/userbase.php";
         const url = `${apiUrl}?${name}=${value}`;
-
-        request.open("GET", url);
-        request.send();
-
-        request.onload = () => {
-            const { count } = JSON.parse(request.responseText);
-
-            if (count > 0) {
-                errorElement.innerHTML =
-                name.charAt(0).toUpperCase() +
-                name.substring(1) +
-                " " +
-                value +
-                " exists! Please try another " +
-                name;
-                element.classList.remove("valid");
-            } else {
-                errorElement.innerHTML = "";
-                element.classList.add("valid");
-            }
-        };
-    } else {
-        errorElement.innerHTML = validator.message;
-        element.classList.remove("valid");
     }
 }
-
 function _validatePassword(element)
 {
     const { value } = element;
