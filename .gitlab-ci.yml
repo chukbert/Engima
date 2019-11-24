@@ -18,6 +18,8 @@ linter:
         - phpcs --standard=PSR2 .
 
 deployToAWS:
+    tags: 
+        - deploy
     only:
         - master
     stage: deploy
