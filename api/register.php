@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $db->query($sql);
     if ($result && $result->num_rows === 0) {
         $password = md5($_POST['password']);
-        $file_path = $db->real_escape_string('/uploads/profile/' . md5(rand()) . '-' . $_FILES['file']['name']);
+        $file_path = $db->real_escape_string('/engima/uploads/profile/' . md5(rand()) . '-' . $_FILES['file']['name']);
 
         if (preg_match("!image!", $_FILES['file']['type'])) {
             if (copy($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $file_path)) {

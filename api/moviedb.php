@@ -3,8 +3,9 @@ require_once('utils/db.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $query = '';
-    if (isset($_GET['name']))
+    if (isset($_GET['name'])) {
         $query = $db->real_escape_string($_GET['name']);
+    }
 
     
 
@@ -39,10 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         foreach ($resp["results"] as $movie) {
             # code...
             $film = new stdClass();
-            $film->id = $movie["id"]; 
-            $film->poster = ("http://image.tmdb.org/t/p/w400".$movie["poster_path"]); 
+            $film->id = $movie["id"];
+            $film->poster = ("http://image.tmdb.org/t/p/w400".$movie["poster_path"]);
             // var_dump($film->poster);
-            $film->title = $movie["original_title"]; 
+            $film->title = $movie["original_title"];
             $film->score = $movie["vote_average"];
             array_push($films, $film);
             // var_dump($movie["original_title"]);

@@ -3,8 +3,9 @@ require_once('utils/db.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $idFilm = '';
-    if (isset($_GET['id']))
+    if (isset($_GET['id'])) {
         $idFilm = $db->real_escape_string($_GET['id']);
+    }
 
     // $sql = "SELECT idFilm, title, posterUrl, durationMinutes, releaseDate, synopsis
     //         FROM film WHERE film.idFilm = $idFilm";
@@ -56,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         if (!$result->fetch_assoc()) {
             $date = date_format(date_create($movie["release_date"]), 'Y-m-d H:i:s');
-            for ($i=0; $i <7 ; $i++) { 
+            for ($i=0; $i <7; $i++) {
                 $temp = date_add(date_create($date), date_interval_create_from_date_string('1 days'));
                 $date = date_format($temp, 'Y-m-d H:i:s');
                 $sql = "INSERT INTO `schedule` (`idFilm`, `dateTime`, `maxSeats`, `price`) 

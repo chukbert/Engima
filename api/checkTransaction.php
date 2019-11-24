@@ -11,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $end = date_format($end, 'Y-m-d H:i:s');
         
         return checkTransactionExist($account, $amount, $start, $end);
-        
     }
 
     $_POST = json_decode(file_get_contents('php://input'), true);

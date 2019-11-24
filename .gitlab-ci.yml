@@ -1,0 +1,23 @@
+image: php:7.2
+
+stages:
+    - lint
+    - deploy
+    
+linter:
+    stage: lint
+    image: pipelinecomponents/php-codesniffer:latest
+    script:
+        - phpcs --config-set default_standard Squiz
+        - phpcs --config-set report_format summary
+        - phpcs --config-set show_warnings 0
+        - phpcs --standard=PSR2 .
+
+deployToAWS:
+    tags: 
+        - deploy
+    only:
+        - master
+    stage: deploy
+    script:
+        - bash deploy/deploy.sh

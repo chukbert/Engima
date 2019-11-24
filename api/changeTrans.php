@@ -5,7 +5,6 @@ require_once('utils/request.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_POST = json_decode(file_get_contents('php://input'), true);
     if (isset($_POST['id']) && isset($_POST['status'])) {
-            
         $idTransaksi = $db->real_escape_string($_POST['id']);
         $status = $db->real_escape_string($_POST['status']);
         

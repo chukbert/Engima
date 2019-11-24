@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 require_once('utils/db.php');
 require_once('utils/cookie.php');
 require_once('utils/request.php');
@@ -53,13 +54,15 @@ function get_schedule_information($idSchedule)
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $idSchedule = '';
-    if (isset($_GET['id']))
+    if (isset($_GET['id'])) {
         $idSchedule = $db->real_escape_string($_GET['id']);
-    else return http_response_code(404);
+    } else {
+        return http_response_code(404);
+    }
 
     echo json_encode(get_schedule_information($idSchedule));
     return http_response_code(200);
-} else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_POST = json_decode(file_get_contents('php://input'), true);
     if (isset($_POST['id']) && isset($_POST['seat'])) {
         $idUser = get_user()['idUser'];

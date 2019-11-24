@@ -59,29 +59,30 @@
 
 
 const request = new XMLHttpRequest();
-const url = `/api/transactions.php`;
+const url = `/engima/api/transactions.php`;
 
 request.open("GET", url);
 request.send();
 
 let data;
 request.onload = () => {
-  data = JSON.parse(request.responseText);
-  console.log(data);
-  loadInitialData();
+    data = JSON.parse(request.responseText);
+    console.log(data);
+    loadInitialData();
 };
 
-function changeTrans(idTransaksi, status){
-  const postUrl = `/api/changeTrans.php`;
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", postUrl);
-  xhr.send(JSON.stringify({
-      id: idTransaksi,
-      status: status
-  }));
-  xhr.onload = () =>{
-    console.log(xhr.responseText)
-  };
+function changeTrans(idTransaksi, status)
+{
+    const postUrl = `/engima/api/changeTrans.php`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", postUrl);
+    xhr.send(JSON.stringify({
+        id: idTransaksi,
+        status: status
+    }));
+    xhr.onload = () =>{
+        console.log(xhr.responseText)
+    };
 }
 
 // function checkTrans(account, amount, start){
@@ -161,60 +162,60 @@ function loadInitialData() {
         if (exist == true) {
           changeTrans(film.idTransaksi, "success");
         }
-      }
-    }
-    movieContainerElement.innerHTML = `<div class="movie-name"><h3>${film.title}</h3></div>`;
-    movieContainerElement.innerHTML += `<h4><span class="blue">Schedule: </span>${film.datetime}</h4>`;
-    movieContainerElement.innerHTML += `<h4><span class="blue">Id Transaksi: </span>${film.idTransaksi}</h4>`;
-    movieContainerElement.innerHTML += `<h4><span class="blue">Status: </span>${film.status}</h4>`;
+        movieContainerElement.innerHTML = `<div class="movie-name"><h3>${film.title}</h3></div>`;
+        movieContainerElement.innerHTML += `<h4><span class="blue">Schedule: </span>${film.datetime}</h4>`;
+        movieContainerElement.innerHTML += `<h4><span class="blue">Id Transaksi: </span>${film.idTransaksi}</h4>`;
+        movieContainerElement.innerHTML += `<h4><span class="blue">Status: </span>${film.status}</h4>`;
 
-    let deleteElement, addEditElement;
-      addEditElement = document.createElement("a");
+        let deleteElement, addEditElement;
+        addEditElement = document.createElement("a");
       
-      if (film.status == 'success') {
-      // addEditElement = document.createElement("a"); 
-      if (film.reviewStatus === 'submitted') {
+        if (film.status == 'success') {
+        // addEditElement = document.createElement("a");
+            if (film.reviewStatus === 'submitted') {
+                movieContainerElement.innerHTML += `<h5>Your review has been submitted.</h5>`;
 
-        movieContainerElement.innerHTML += `<h5>Your review has been submitted.</h5>`;
+                deleteElement = document.createElement("a");
+                deleteElement.setAttribute('class', 'delete-review');
+                deleteElement.onclick = () => deleteReview(film.idTransaksi);
+                deleteElement.innerHTML = 'Delete Review';
 
-        deleteElement = document.createElement("a");
-        deleteElement.setAttribute('class', 'delete-review');
-        deleteElement.onclick = () => deleteReview(film.idTransaksi);
-        deleteElement.innerHTML = 'Delete Review';
+                addEditElement.innerHTML = 'Edit Review';
+                addEditElement.setAttribute('class', 'edit-review')
+            } else if (film.reviewStatus === 'ready') {
+                addEditElement.innerHTML = 'Add Review';
+            }
+        }
+        rowElement.appendChild(movieContainerElement);
 
-        addEditElement.innerHTML = 'Edit Review';
-        addEditElement.setAttribute('class', 'edit-review')
-
-      } else if (film.reviewStatus === 'ready') {
-
-        addEditElement.innerHTML = 'Add Review';
-
-      }
-    }
-      rowElement.appendChild(movieContainerElement);
-
-      addEditElement.onclick = () => { window.location.href = `/review?id=${film.idTransaksi}`; };
-      if (film.reviewStatus != 'disabled' && film.status == 'success') rowElement.appendChild(addEditElement);
-      if (deleteElement) rowElement.appendChild(deleteElement);
+        addEditElement.onclick = () => { window.location.href = `/engima/review?id=${film.idTransaksi}`; };
+        if (film.reviewStatus != 'disabled' && film.status == 'success') {
+            rowElement.appendChild(addEditElement);
+        }
+        if (deleteElement) {
+            rowElement.appendChild(deleteElement);
+        }
   
-    contentElement.appendChild(rowElement);
-    if (i < data.length - 1)
-      contentElement.appendChild(document.createElement("hr"));
-  });
+        contentElement.appendChild(rowElement);
+        if (i < data.length - 1) {
+            contentElement.appendChild(document.createElement("hr"));
+        }
+    });
   
 }
 
-function deleteReview(idTransaksi) {
-  const delRequest = new XMLHttpRequest();
-  const postData = {
-    id: idTransaksi,
-  };
+function deleteReview(idTransaksi)
+{
+    const delRequest = new XMLHttpRequest();
+    const postData = {
+        id: idTransaksi,
+    };
 
-  const reviewUrl = `/api/review.php`
-  delRequest.open("DELETE", reviewUrl);
-  delRequest.send(JSON.stringify(postData));
+    const reviewUrl = `/engima/api/review.php`
+    delRequest.open("DELETE", reviewUrl);
+    delRequest.send(JSON.stringify(postData));
 
-  delRequest.onload = () => {
-    window.location.href = '/transactions';
-  };
+    delRequest.onload = () => {
+        window.location.href = '/engima/transactions';
+    };
 }
