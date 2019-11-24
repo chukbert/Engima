@@ -1,6 +1,6 @@
 <?php
 
-function generateVA($account) 
+function generateVirtualAccount($account) 
 {
     $sc = new SoapClient("http://13.229.224.101:8080/engima/WSBank?wsdl");
     $params = array('arg0' => $account);
@@ -8,7 +8,7 @@ function generateVA($account)
     return $result;
 }
 
-function checkTransaction($account, $amount, $start, $end)
+function checkTransactionExist($account, $amount, $start, $end)
 {
     $sct = new SoapClient("http://13.229.224.101:8080/engima/WSBank?wsdl");
     $params = array('arg0' => $account, 'arg1' => $amount, 'arg2' => $start, 'arg3' => $end);
@@ -17,5 +17,5 @@ function checkTransaction($account, $amount, $start, $end)
 }
 
 // $resp = generateVA(1);
-$resp = checkTransaction(2, 410, "2019-11-23 18:16:00", "2019-11-23 18:17:00");
-var_dump($resp);
+// $resp = checkTransaction(2, 410, "2019-11-23 18:16:00", "2019-11-23 18:17:00");
+// var_dump($resp);
