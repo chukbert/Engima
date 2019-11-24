@@ -83,7 +83,7 @@ function submit()
     postRequest.open("POST", url);
     postRequest.send(JSON.stringify(postData));
 
-  postRequest.onload = () => {
-    window.location.href = '/engima/transactions';
-  };
+    postRequest.onload = () => {
+        window.location.href = '/engima/transactions';
+    };
 }

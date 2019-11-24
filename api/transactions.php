@@ -4,35 +4,35 @@ require_once('utils/cookie.php');
 require_once('utils/request.php');
 
 // if ($_SERVER["REQUEST_METHOD"] == "GET") {
-// 	$user = get_user();
+//  $user = get_user();
 
 //     $sql = "SELECT DISTINCT transaction.idTransaction, title, posterUrl, dateTime, reviewStatus, durationMinutes
 //             FROM transaction JOIN schedule JOIN film JOIN (
-// 				SELECT transaction.idTransaction, idReview as reviewStatus
-// 				FROM transaction LEFT JOIN review
-// 				ON transaction.idTransaction = review.idTransaction)
-// 			AS reviewcheck
+//              SELECT transaction.idTransaction, idReview as reviewStatus
+//              FROM transaction LEFT JOIN review
+//              ON transaction.idTransaction = review.idTransaction)
+//          AS reviewcheck
 //             WHERE
-// 			transaction.idUser = ".$user['idUser']." AND
-// 			transaction.idSchedule = schedule.idSchedule AND
-// 			transaction.idTransaction = reviewcheck.idTransaction AND
-// 			schedule.idFilm = film.idFilm
+//          transaction.idUser = ".$user['idUser']." AND
+//          transaction.idSchedule = schedule.idSchedule AND
+//          transaction.idTransaction = reviewcheck.idTransaction AND
+//          schedule.idFilm = film.idFilm
 //             ORDER BY dateTime DESC";
 
 //     $result = $db->query($sql);
 
 //     $rows = array();
 //     while ($row = $result->fetch_assoc()) {
-// 		if (strtotime($row['dateTime']) + $row['durationMinutes'] > time())
-// 			$row['reviewStatus'] = 'disabled';
-// 		else if ($row['reviewStatus'] === null)
-// 			$row['reviewStatus'] = 'ready';
-// 		else
-// 			$row['reviewStatus'] = 'submitted';
-			
-// 		$row['dateTime'] = date('F j, Y - h:i A', strtotime($row['dateTime']));
+//      if (strtotime($row['dateTime']) + $row['durationMinutes'] > time())
+//          $row['reviewStatus'] = 'disabled';
+//      else if ($row['reviewStatus'] === null)
+//          $row['reviewStatus'] = 'ready';
+//      else
+//          $row['reviewStatus'] = 'submitted';
+            
+//      $row['dateTime'] = date('F j, Y - h:i A', strtotime($row['dateTime']));
 //         $rows[] = $row;
-// 	}
+//  }
 
 //     echo json_encode($rows);
 //     return http_response_code(200);
@@ -44,20 +44,19 @@ require_once('utils/request.php');
   $resp = json_decode($getdata, true);
   $transactions = array();
 
-  foreach ($resp["data"] as $trans) {
-    
+foreach ($resp["data"] as $trans) {
     $idFilm = $trans["idFilm"];
     
     $curl = curl_init();
     curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.themoviedb.org/3/movie/".$idFilm."?api_key=7b0a11ef2d329f19bc4a57626fe8502e&language=en-US",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_POSTFIELDS => "{}",
+      CURLOPT_URL => "https://api.themoviedb.org/3/movie/".$idFilm."?api_key=7b0a11ef2d329f19bc4a57626fe8502e&language=en-US",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_POSTFIELDS => "{}",
     ));
 
     $response = curl_exec($curl);
@@ -87,17 +86,18 @@ require_once('utils/request.php');
         $result2 = $db->query($sql2);
         
         if ($row = $result2->fetch_assoc()) {
-          if (strtotime($film->datetime)  > time())
-            $film->reviewStatus = 'disabled';
-          else
-            $film->reviewStatus = 'submitted';
+            if (strtotime($film->datetime)  > time()) {
+                $film->reviewStatus = 'disabled';
+            } else {
+                $film->reviewStatus = 'submitted';
+            }
         } else {
-          $film->reviewStatus = 'ready';
+            $film->reviewStatus = 'ready';
         }
     }
     // $transactions[] = $trans;
     $transactions[] = $film;
-  }
+}
 
   echo(json_encode($transactions));
   return http_response_code(200);
@@ -147,7 +147,7 @@ require_once('utils/request.php');
     //     }
     //     $film->genres = $genres;
 
-    //     $sql = "SELECT idSchedule 
+    //     $sql = "SELECT idSchedule
     //             FROM schedule
     //             WHERE idFilm = ".$idFilm;
 
@@ -156,10 +156,10 @@ require_once('utils/request.php');
 
     //     if (!$result->fetch_assoc()) {
     //         $date = date_format(date_create($movie["release_date"]), 'Y-m-d H:i:s');
-    //         for ($i=0; $i <7 ; $i++) { 
+    //         for ($i=0; $i <7 ; $i++) {
     //             $temp = date_add(date_create($date), date_interval_create_from_date_string('1 days'));
     //             $date = date_format($temp, 'Y-m-d H:i:s');
-    //             $sql = "INSERT INTO `schedule` (`idFilm`, `dateTime`, `maxSeats`, `price`) 
+    //             $sql = "INSERT INTO `schedule` (`idFilm`, `dateTime`, `maxSeats`, `price`)
     //                     VALUES ('".$idFilm."', '".$date."', '20', '45000')";
     //             if ($db->query($sql)) {
     //                 http_response_code(201);
@@ -170,9 +170,9 @@ require_once('utils/request.php');
     //     }
 
 
-        // $sql = "SELECT s.idSchedule, s.dateTime, (s.maxSeats - count(t.seatNumber)) as availableSeats 
-        //         FROM schedule s LEFT JOIN transaction t 
-        //         ON s.idSchedule = t.idSchedule 
+        // $sql = "SELECT s.idSchedule, s.dateTime, (s.maxSeats - count(t.seatNumber)) as availableSeats
+        //         FROM schedule s LEFT JOIN transaction t
+        //         ON s.idSchedule = t.idSchedule
         //         WHERE s.idFilm = $idFilm GROUP BY s.idSchedule";
 
         

@@ -25,10 +25,10 @@ uploader.addEventListener("change", e => {
 
 const form = document.querySelector("form");
 form.addEventListener("submit", e => {
-  e.preventDefault();
-  const request = new XMLHttpRequest();
-  const url = "/engima/api/register.php";
-  const form = document.querySelector("form");
+    e.preventDefault();
+    const request = new XMLHttpRequest();
+    const url = "/engima/api/register.php";
+    const form = document.querySelector("form");
 
     const fieldElements = document.querySelectorAll("form input");
     let isAllFieldsValid = true;
@@ -45,28 +45,35 @@ if (isAllFieldsValid) {
     request.send(formData);
 
     request.onload = () => {
-      if (request.status === 201) {
-        window.location = "/engima";
-      }
+        if (request.status === 201) {
+            window.location = "/engima";
+        }
     };
 }
 });
 
-function _validate(element) {
-  const { name, value } = element;
+function _validate(element)
+{
+    const { name, value } = element;
 
-  if (name === "password") return _validatePassword(element);
-  if (name === "confirmPassword") return _validateConfirmPassword(element);
-  if (name === "file") return _validateFile();
+    if (name === "password") {
+        return _validatePassword(element);
+    }
+    if (name === "confirmPassword") {
+        return _validateConfirmPassword(element);
+    }
+    if (name === "file") {
+        return _validateFile();
+    }
 
-  const errorElement = document.getElementById(`error-${name}`);
-  const validator = VALIDATORS[name];
+    const errorElement = document.getElementById(`error-${name}`);
+    const validator = VALIDATORS[name];
 
-  if (value.match(validator.regex)) {
-    const request = new XMLHttpRequest();
-    const apiUrl = "/engima/api/userbase.php";
-    const url = `${apiUrl}?${name}=${value}`;
-  }
+    if (value.match(validator.regex)) {
+        const request = new XMLHttpRequest();
+        const apiUrl = "/engima/api/userbase.php";
+        const url = `${apiUrl}?${name}=${value}`;
+    }
 }
 function _validatePassword(element)
 {

@@ -14,17 +14,17 @@ request.onload = () => {
 function loadInitialData()
 {
   // Movie Detail
-  document.getElementById("movie-poster").src = data.poster;
-  document.getElementById("movie-name").innerHTML = data.title;
-  document.getElementById("movie-category").innerHTML = data.genres.join(", ");
-  document.getElementById(
-    "movie-duration"
-  ).innerHTML = `${data.durationMinutes} mins`;
-  document.getElementById(
-    "movie-release"
-  ).innerHTML = `Release date: ${data.releaseDate}`;
-  document.getElementById("movie-rating").innerHTML = data.rating;
-  document.querySelector(".synopsis p").innerHTML = data.synopsis;
+    document.getElementById("movie-poster").src = data.poster;
+    document.getElementById("movie-name").innerHTML = data.title;
+    document.getElementById("movie-category").innerHTML = data.genres.join(", ");
+    document.getElementById(
+        "movie-duration"
+    ).innerHTML = `${data.durationMinutes} mins`;
+    document.getElementById(
+        "movie-release"
+    ).innerHTML = `Release date: ${data.releaseDate}`;
+    document.getElementById("movie-rating").innerHTML = data.rating;
+    document.querySelector(".synopsis p").innerHTML = data.synopsis;
 
   // Schedules
     const schedulesElement = document.getElementById("schedules");
@@ -47,10 +47,10 @@ function loadInitialData()
       scheduleDate > currentDate && schedule.availableSeats > 0;
 
     if (isBookingAvailable) {
-      buttonElement.onclick = () => {
-        window.location.href = `/engima/booking?id=${schedule.idSchedule}`;
-      };
-      buttonElement.innerHTML =
+        buttonElement.onclick = () => {
+            window.location.href = `/engima/booking?id=${schedule.idSchedule}`;
+        };
+        buttonElement.innerHTML =
         'Book Now <i class="fa fa-chevron-circle-right"></i>';
     } else {
         buttonElement.setAttribute("class", "unavailable");

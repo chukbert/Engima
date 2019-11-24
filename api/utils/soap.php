@@ -1,6 +1,6 @@
 <?php
 
-function generateVirtualAccount($account) 
+function generateVirtualAccount($account)
 {
     $sc = new SoapClient("http://13.229.224.101:8080/engima/WSBank?wsdl");
     $params = array('arg0' => $account);

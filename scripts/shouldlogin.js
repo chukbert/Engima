@@ -4,6 +4,8 @@ const authUrl = "/engima/api/auth.php";
 authRequest.open("GET", authUrl);
 authRequest.send();
 authRequest.onload = () => {
-  const auth = JSON.parse(authRequest.responseText);
-  if (auth.status === "logout") window.location = "/engima/login";
+    const auth = JSON.parse(authRequest.responseText);
+    if (auth.status === "logout") {
+        window.location = "/engima/login";
+    }
 };

@@ -11,25 +11,27 @@ const urlParams = new URLSearchParams(window.location.search);
 let data;
 scheduleRefresher();
 
-function scheduleRefresher() {
-  const request = new XMLHttpRequest();
-  const getUrl = `${url}?id=${urlParams.get("id")}`;
+function scheduleRefresher()
+{
+    const request = new XMLHttpRequest();
+    const getUrl = `${url}?id=${urlParams.get("id")}`;
 
-  const activeSeatElement = document.querySelector(".seat-row .active");
-  const seatNumber = activeSeatElement && parseInt(activeSeatElement.innerHTML);
+    const activeSeatElement = document.querySelector(".seat-row .active");
+    const seatNumber = activeSeatElement && parseInt(activeSeatElement.innerHTML);
 
-  request.open("GET", getUrl);
-  request.send();
+    request.open("GET", getUrl);
+    request.send();
 
-  request.onload = () => {
-    console.log(request.responseText);
-    data = JSON.parse(request.responseText);
-    loadScheduleDetail();
-    if (seatNumber && !data.takenSeats.includes(seatNumber))
-      selectSeat(seatNumber);
-  };
+    request.onload = () => {
+        console.log(request.responseText);
+        data = JSON.parse(request.responseText);
+        loadScheduleDetail();
+        if (seatNumber && !data.takenSeats.includes(seatNumber)) {
+            selectSeat(seatNumber);
+        }
+    };
 
-  setTimeout(scheduleRefresher, 5000);
+    setTimeout(scheduleRefresher, 5000);
 }
 
 function loadScheduleDetail()
@@ -103,33 +105,34 @@ function selectSeat(number)
     });
 }
 
-function buyTicket(number) {
-  const modalElement = document.getElementById("modal");
-  const modalContentElement = document.querySelector(".modal-content");
+function buyTicket(number)
+{
+    const modalElement = document.getElementById("modal");
+    const modalContentElement = document.querySelector(".modal-content");
 
-  const postRequest = new XMLHttpRequest();
-  const postData = {
-    id: urlParams.get("id"),
-    seat: number
-  };
+    const postRequest = new XMLHttpRequest();
+    const postData = {
+        id: urlParams.get("id"),
+        seat: number
+    };
 
-  postRequest.open("POST", url);
-  postRequest.send(JSON.stringify(postData));
+    postRequest.open("POST", url);
+    postRequest.send(JSON.stringify(postData));
 
-  postRequest.onload = () => {
-    const response = JSON.parse(postRequest.responseText);
-    data = response.data;
+    postRequest.onload = () => {
+        const response = JSON.parse(postRequest.responseText);
+        data = response.data;
 
-    if (response.status === "success") {
-      console.log(response)
-      modalContentElement.innerHTML = PAYMENT_SUCCESS + "<p>transfer to : "+ response.va +"</p>"+ "<p>id transaksi : "+ response.idTransaksi +"</p>";
-    } else {
-      modalContentElement.innerHTML = PAYMENT_FAILED;
-    }
+        if (response.status === "success") {
+            console.log(response)
+            modalContentElement.innerHTML = PAYMENT_SUCCESS + "<p>transfer to : "+ response.va +"</p>"+ "<p>id transaksi : "+ response.idTransaksi +"</p>";
+        } else {
+            modalContentElement.innerHTML = PAYMENT_FAILED;
+        }
 
-    modalElement.classList.add("shown");
-    // loadScheduleDetail();
-  };
+        modalElement.classList.add("shown");
+      // loadScheduleDetail();
+    };
 }
 
 window.onclick = function (event) {

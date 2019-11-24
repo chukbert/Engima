@@ -9,9 +9,9 @@ form.addEventListener("submit", e => {
     request.open("POST", url);
     request.send(formData);
 
-  request.onload = () => {
-    if (request.status === 200) {
-      window.location = "/engima";
-    }
-  };
+    request.onload = () => {
+        if (request.status === 200) {
+            window.location = "/engima";
+        }
+    };
 });
