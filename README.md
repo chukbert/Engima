@@ -7,22 +7,22 @@ Setelah melakukan pembuatan Aplikasi web Engima, bioskop engi menjadi sangat lak
 - Data transaksi didapat dari web service transaksi
 ## Screenshot perubahan tampilan pada Engima
 ## Login 
-![] (__specifications/screenshots/login.png)
+![](__specifications/screenshots/login.png)
 
 ## Register
-![] (__specifications/screenshots/register.png)
+![](__specifications/screenshots/register.png)
 
 ## Home
-![] (__specifications/screenshots/home2.png)
+![](__specifications/screenshots/home2.png)
 
 ## Movie Detail
-![] (__specifications/screenshots/detail2.png)
+![](__specifications/screenshots/detail2.png)
 
 ## Transactions
-![] (__specifications/screenshots/trans_hist.png)
+![](__specifications/screenshots/trans_hist.png)
 
 ## Buy Ticket
-![] (__specifications/screenshots/buy2.png)
+![](__specifications/screenshots/buy2.png)
 
 ## Pembagian tugas
 - M. Rifky I. Bariansyah - 13517081
