@@ -84,34 +84,52 @@ function changeTrans(idTransaksi, status){
   };
 }
 
-function checkTrans(account, amount, start){
-  const postUrl = `/api/checkTransaction.php`;
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", postUrl);
-  xhr.send(JSON.stringify({
-      account: account,
-      amount: amount,
-      start: start
-  }));
-  console.log({
+// function checkTrans(account, amount, start){
+//   const postUrl = `/api/checkTransaction.php`;
+//   var xhr = new XMLHttpRequest();
+//   xhr.open("POST", postUrl);
+//   xhr.send(JSON.stringify({
+//       account: account,
+//       amount: amount,
+//       start: start
+//   }));
+//   xhr.onreadystatechange = () =>{
+//     let resp = JSON.parse(xhr.responseText)
+//     data = resp.return
+//     console.log(data)
+//     return data
+//   };
+// }
+
+async function checkTrans(account, amount, start){
+  const url = `/api/checkTransaction.php`;
+  const data = {
     account: account,
     amount: amount,
     start: start
-})
-console.log(Date())
-  xhr.onload = () =>{
-    console.log(xhr.responseText)
-    let resp = JSON.parse(xhr.responseText)
-    data = resp.return
-    return data
   };
+
+try {
+  const response = await fetch(url, {
+    method: 'POST', // or 'PUT'
+    body: JSON.stringify(data), // data can be `string` or {object}!
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const json = await response.json();
+  return json.return;
+  console.log('Success:', JSON.stringify(json));
+} catch (error) {
+  console.error('Error:', error);
+}
 }
 
 function loadInitialData() {
   const contentElement = document.querySelector(".content-container");
   contentElement.innerHTML = '<h3>Transaction History</h3><h4></h4>';
 
-  data.forEach((film, i) => {
+  data.forEach(async(film, i) => {
     const rowElement = document.createElement("div");
     rowElement.setAttribute("class", "row");
 
@@ -125,16 +143,22 @@ function loadInitialData() {
     movieContainerElement.setAttribute("class", "movie-container");
 
 
-    let  order = (film.orderTime.replace("T"," ")).replace("Z", "");
-    console.log(order)
+    let  orderBank = (film.orderTime.replace("T"," ")).replace("Z", "");
+    let  order = film.orderTime;
 
     if (film.status == 'pending'){
-      console.log(order)
+      console.log(Date.parse(order+'') +120000 < Date.parse(Date()));
+      console.log(order);    
+      console.log(Date.parse(order+'') +120000);
+      console.log(Date());
+      console.log(Date.parse(Date()));
       if(Date.parse(order+'') +120000 < Date.parse(Date())){
         changeTrans(film.idTransaksi, "cancelled");
       } 
       else {
-        if (checkTrans(film.va, 45000,order)) {
+        let exist = await checkTrans(film.va, 45000,orderBank)
+        console.log(exist)
+        if (exist == true) {
           changeTrans(film.idTransaksi, "success");
         }
       }

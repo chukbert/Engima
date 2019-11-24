@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $virtual = generateVA(3)->return;
         $bod = new stdClass();
         $bod->idUser = $idUser;
-        $bod->akunVirtual = "3000";
+        $bod->akunVirtual = $virtual;
         $bod->idFilm = $response['idFilm'];
         $bod->idSchedule = $idSchedule;
         $bod->seatNumber = $seatNumber;
