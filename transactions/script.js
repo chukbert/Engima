@@ -80,7 +80,7 @@ function loadInitialData() {
     rowElement.setAttribute("class", "row");
 
     const imgElement = document.createElement("img");
-    imgElement.src = film.posterUrl; // ganti poster film
+    imgElement.src = film.poster; // ganti poster film
     imgElement.width = 108;
     imgElement.height = 150;
     rowElement.appendChild(imgElement);
@@ -89,46 +89,49 @@ function loadInitialData() {
     movieContainerElement.setAttribute("class", "movie-container");
 
     movieContainerElement.innerHTML = `<div class="movie-name"><h3>${film.title}</h3></div>`;
-    movieContainerElement.innerHTML += `<h4><span class="blue">Schedule: </span>${film.dateTime}</h4>`;
-    movieContainerElement.innerHTML += `<h4><span class="blue">Id Transaksi: </span>${film.//idtransaksi}</h4>`;
+    movieContainerElement.innerHTML += `<h4><span class="blue">Schedule: </span>${film.datetime}</h4>`;
+    movieContainerElement.innerHTML += `<h4><span class="blue">Id Transaksi: </span>${film.idTransaksi}</h4>`;
     movieContainerElement.innerHTML += `<h4><span class="blue">Status: </span>${film.status}</h4>`;
 
     let deleteElement, addEditElement;
-    addEditElement = document.createElement("a");
+      addEditElement = document.createElement("a");
+     if (film.status == 'success') {
+      // addEditElement = document.createElement("a"); 
+      if (film.reviewStatus === 'submitted') {
 
-    if (film.reviewStatus === 'submitted') {
+        movieContainerElement.innerHTML += `<h5>Your review has been submitted.</h5>`;
 
-      movieContainerElement.innerHTML += `<h5>Your review has been submitted.</h5>`;
+        deleteElement = document.createElement("a");
+        deleteElement.setAttribute('class', 'delete-review');
+        deleteElement.onclick = () => deleteReview(film.idTransaksi);
+        deleteElement.innerHTML = 'Delete Review';
 
-      deleteElement = document.createElement("a");
-      deleteElement.setAttribute('class', 'delete-review');
-      deleteElement.onclick = () => deleteReview(film.idTransaction);
-      deleteElement.innerHTML = 'Delete Review';
+        addEditElement.innerHTML = 'Edit Review';
+        addEditElement.setAttribute('class', 'edit-review')
 
-      addEditElement.innerHTML = 'Edit Review';
-      addEditElement.setAttribute('class', 'edit-review')
+      } else if (film.reviewStatus === 'ready') {
 
-    } else if (film.reviewStatus === 'ready') {
+        addEditElement.innerHTML = 'Add Review';
 
-      addEditElement.innerHTML = 'Add Review';
-
+      }
     }
-    rowElement.appendChild(movieContainerElement);
+      rowElement.appendChild(movieContainerElement);
 
-    addEditElement.onclick = () => { window.location.href = `/review?id=${film.idTransaction}`; };
-    if (film.reviewStatus != 'disabled') rowElement.appendChild(addEditElement);
-    if (deleteElement) rowElement.appendChild(deleteElement);
-
+      addEditElement.onclick = () => { window.location.href = `/review?id=${film.idTransaksi}`; };
+      if (film.reviewStatus != 'disabled' && film.status == 'success') rowElement.appendChild(addEditElement);
+      if (deleteElement) rowElement.appendChild(deleteElement);
+  
     contentElement.appendChild(rowElement);
     if (i < data.length - 1)
       contentElement.appendChild(document.createElement("hr"));
   });
+  
 }
 
-function deleteReview(idTransaction) {
+function deleteReview(idTransaksi) {
   const delRequest = new XMLHttpRequest();
   const postData = {
-    id: idTransaction,
+    id: idTransaksi,
   };
 
   const reviewUrl = `/api/review.php`
