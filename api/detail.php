@@ -3,8 +3,9 @@ require_once('utils/db.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $idFilm = '';
-    if (isset($_GET['id']))
+    if (isset($_GET['id'])) {
         $idFilm = $db->real_escape_string($_GET['id']);
+    }
 
     // $sql = "SELECT idFilm, title, posterUrl, durationMinutes, releaseDate, synopsis
     //         FROM film WHERE film.idFilm = $idFilm";

@@ -9,7 +9,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT username, password FROM user WHERE email='$email'";
     $result = $db->query($sql);
     if ($result && $result->num_rows === 1) {
-
         $result = $db->query($sql);
         $row = $result->fetch_assoc();
 

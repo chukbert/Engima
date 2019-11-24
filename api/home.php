@@ -3,8 +3,9 @@ require_once('utils/db.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $query = '';
-    if (isset($_GET['name']))
+    if (isset($_GET['name'])) {
         $query = $db->real_escape_string($_GET['name']);
+    }
 
     
 
@@ -54,8 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $result = $db->query($sql);
 
     $response = array();
-    while ($row = $result->fetch_assoc())
-        $response[] = $row;;
+    while ($row = $result->fetch_assoc()) {
+        $response[] = $row;
+    };
 
     echo json_encode($response);
     return http_response_code(200);
