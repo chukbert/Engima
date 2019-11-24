@@ -71,6 +71,42 @@ request.onload = () => {
   loadInitialData();
 };
 
+function changeTrans(idTransaksi, status){
+  const postUrl = `/api/changeTrans.php`;
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", postUrl);
+  xhr.send(JSON.stringify({
+      id: idTransaksi,
+      status: status
+  }));
+  xhr.onload = () =>{
+    console.log(xhr.responseText)
+  };
+}
+
+function checkTrans(account, amount, start){
+  const postUrl = `/api/checkTransaction.php`;
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", postUrl);
+  xhr.send(JSON.stringify({
+      account: account,
+      amount: amount,
+      start: start
+  }));
+  console.log({
+    account: account,
+    amount: amount,
+    start: start
+})
+console.log(Date())
+  xhr.onload = () =>{
+    console.log(xhr.responseText)
+    let resp = JSON.parse(xhr.responseText)
+    data = resp.return
+    return data
+  };
+}
+
 function loadInitialData() {
   const contentElement = document.querySelector(".content-container");
   contentElement.innerHTML = '<h3>Transaction History</h3><h4></h4>';
@@ -88,6 +124,21 @@ function loadInitialData() {
     const movieContainerElement = document.createElement("div");
     movieContainerElement.setAttribute("class", "movie-container");
 
+
+    let  order = (film.orderTime.replace("T"," ")).replace("Z", "");
+    console.log(order)
+
+    if (film.status == 'pending'){
+      console.log(order)
+      if(Date.parse(order+'') +120000 < Date.parse(Date())){
+        changeTrans(film.idTransaksi, "cancelled");
+      } 
+      else {
+        if (checkTrans(film.va, 45000,order)) {
+          changeTrans(film.idTransaksi, "success");
+        }
+      }
+    }
     movieContainerElement.innerHTML = `<div class="movie-name"><h3>${film.title}</h3></div>`;
     movieContainerElement.innerHTML += `<h4><span class="blue">Schedule: </span>${film.datetime}</h4>`;
     movieContainerElement.innerHTML += `<h4><span class="blue">Id Transaksi: </span>${film.idTransaksi}</h4>`;
@@ -95,7 +146,8 @@ function loadInitialData() {
 
     let deleteElement, addEditElement;
       addEditElement = document.createElement("a");
-     if (film.status == 'success') {
+      
+      if (film.status == 'success') {
       // addEditElement = document.createElement("a"); 
       if (film.reviewStatus === 'submitted') {
 
