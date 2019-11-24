@@ -103,7 +103,7 @@ function changeTrans(idTransaksi, status)
 // }
 
 async function checkTrans(account, amount, start){
-  const url = `/api/checkTransaction.php`;
+  const url = `/engima/api/checkTransaction.php`;
   const data = {
     account: account,
     amount: amount,
