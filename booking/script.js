@@ -1,6 +1,6 @@
 const PAYMENT_SUCCESS =
-  "<h2>Payment Success!</h2>" +
-  "<p>Thank you for purchasing! You can view your purchase now.</p>" +
+  "<h2>Booking Success!</h2>" +
+  "<p>Thank you for booking! Please continue to payment.</p>" +
   '<button onclick="window.location.href=\'/transactions\'" class="button">Go to transaction history</button>';
 const PAYMENT_FAILED =
   '<h2 class="failed">Payment Failed!</h2>' +
@@ -116,13 +116,14 @@ function buyTicket(number) {
     data = response.data;
 
     if (response.status === "success") {
-      modalContentElement.innerHTML = PAYMENT_SUCCESS;
+      console.log(response)
+      modalContentElement.innerHTML = PAYMENT_SUCCESS + "<p>transfer to : "+ response.va +"</p>"+ "<p>id transaksi : "+ response.idTransaksi +"</p>";
     } else {
       modalContentElement.innerHTML = PAYMENT_FAILED;
     }
 
     modalElement.classList.add("shown");
-    loadScheduleDetail();
+    // loadScheduleDetail();
   };
 }
 

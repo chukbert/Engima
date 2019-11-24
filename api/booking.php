@@ -2,6 +2,7 @@
 require_once('utils/db.php');
 require_once('utils/cookie.php');
 require_once('utils/request.php');
+require_once('generateVA.php');
 
 function get_schedule_information($idSchedule)
 {
@@ -86,6 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $response = array();
         $response['status'] = 'success';
         $resp = callAPI("POST", "http://13.229.224.101:3000/transaksi", json_encode($bod));
+        $response['idTransaksi'] = json_decode($resp, true)["id"];
+        $response['va'] = generateVA(1)->return;
 
         echo json_encode($response);
         return;
