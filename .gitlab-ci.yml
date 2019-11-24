@@ -1,5 +1,9 @@
 image: php:7.2
 
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+
 stages:
     - lint
     - deploy
