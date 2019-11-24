@@ -76,6 +76,7 @@ request.send();
 let data;
 request.onload = () => {
   data = JSON.parse(request.responseText);
+  console.log(data);
   loadInitialData();
 };
 
