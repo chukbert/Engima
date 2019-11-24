@@ -70,6 +70,8 @@ foreach ($resp["data"] as $trans) {
         $film->poster = "http://image.tmdb.org/t/p/w400".$movie["poster_path"];
         $film->idTransaksi = $trans["idTransaksi"];
         $film->status = $trans["status"];
+        $film->va = $trans["akun_virtual"];
+        $film->orderTime = $trans["waktu_pemesanan"];
         
         $sql = "SELECT dateTime 
                 FROM schedule
