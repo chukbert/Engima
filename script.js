@@ -54,13 +54,13 @@
 
 
 const authRequest = new XMLHttpRequest();
-const authUrl = "/api/auth.php";
+const authUrl = "/engima/api/auth.php";
 
 authRequest.open("GET", authUrl);
 authRequest.send();
 authRequest.onload = () => {
   const auth = JSON.parse(authRequest.responseText);
-  if (auth.status === "logout") window.location = "/login";
+  if (auth.status === "logout") window.location = "/engima/login";
   else {
     const userElement = document.querySelector(".greetings span");
     userElement.innerHTML = auth.user;
@@ -68,7 +68,7 @@ authRequest.onload = () => {
 };
 
 const request = new XMLHttpRequest();
-const url = '/api/moviedb.php';
+const url = '/engima/api/moviedb.php';
 
 request.open("GET", url);
 request.send();
@@ -91,7 +91,7 @@ function loadInitialData() {
 
     chk.forEach(film => {
       const colElement = document.createElement("a");
-      colElement.setAttribute("href", `/detail?id=${film.id}`);
+      colElement.setAttribute("href", `/engima/detail?id=${film.id}`);
       colElement.setAttribute("class", "column");
 
       const imgElement = document.createElement("img");

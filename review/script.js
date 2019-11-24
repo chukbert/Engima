@@ -1,6 +1,6 @@
 const request = new XMLHttpRequest();
 const urlParams = new URLSearchParams(window.location.search);
-const url = `/api/review.php?id=${urlParams.get("id")}`;
+const url = `/engima/api/review.php?id=${urlParams.get("id")}`;
 
 request.open("GET", url);
 request.send();
@@ -77,6 +77,6 @@ function submit() {
   postRequest.send(JSON.stringify(postData));
 
   postRequest.onload = () => {
-    window.location.href = '/transactions';
+    window.location.href = '/engima/transactions';
   };
 }

@@ -6,7 +6,7 @@ const PAYMENT_FAILED =
   '<h2 class="failed">Payment Failed!</h2>' +
   "<p>Someone has just taken your seat! Please choose another seat.</p>";
 
-const url = `/api/booking.php`;
+const url = `/engima/api/booking.php`;
 const urlParams = new URLSearchParams(window.location.search);
 let data;
 scheduleRefresher();

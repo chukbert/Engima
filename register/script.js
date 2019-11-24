@@ -27,7 +27,7 @@ const form = document.querySelector("form");
 form.addEventListener("submit", e => {
   e.preventDefault();
   const request = new XMLHttpRequest();
-  const url = "/api/register.php";
+  const url = "/engima/api/register.php";
   const form = document.querySelector("form");
 
   const fieldElements = document.querySelectorAll("form input");
@@ -46,7 +46,7 @@ form.addEventListener("submit", e => {
 
     request.onload = () => {
       if (request.status === 201) {
-        window.location = "/";
+        window.location = "/engima";
       }
     };
   }
@@ -64,7 +64,7 @@ function _validate(element) {
 
   if (value.match(validator.regex)) {
     const request = new XMLHttpRequest();
-    const apiUrl = "/api/userbase.php";
+    const apiUrl = "/engima/api/userbase.php";
     const url = `${apiUrl}?${name}=${value}`;
 
     request.open("GET", url);

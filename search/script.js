@@ -2,7 +2,7 @@ const RESULTS_PER_PAGE = 5;
 
 const request = new XMLHttpRequest();
 const urlParams = new URLSearchParams(window.location.search);
-const url = `/api/search.php?name=${urlParams.get("name")}`;
+const url = `/engima/api/search.php?name=${urlParams.get("name")}`;
 
 request.open("GET", url);
 request.send();
@@ -55,7 +55,7 @@ function loadPage(page) {
     rowElement.appendChild(movieContainerElement);
 
     const detailElement = document.createElement("a");
-    detailElement.href = `/detail?id=${film.idFilm}`;
+    detailElement.href = `/engima/detail?id=${film.idFilm}`;
     detailElement.innerHTML =
       'View Details <i class="fa fa-chevron-circle-right"></i>';
     rowElement.appendChild(detailElement);

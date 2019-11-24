@@ -59,7 +59,7 @@
 
 
 const request = new XMLHttpRequest();
-const url = `/api/transactions.php`;
+const url = `/engima/api/transactions.php`;
 
 request.open("GET", url);
 request.send();
@@ -117,7 +117,7 @@ function loadInitialData() {
     }
       rowElement.appendChild(movieContainerElement);
 
-      addEditElement.onclick = () => { window.location.href = `/review?id=${film.idTransaksi}`; };
+      addEditElement.onclick = () => { window.location.href = `/engima/review?id=${film.idTransaksi}`; };
       if (film.reviewStatus != 'disabled' && film.status == 'success') rowElement.appendChild(addEditElement);
       if (deleteElement) rowElement.appendChild(deleteElement);
   
@@ -134,11 +134,11 @@ function deleteReview(idTransaksi) {
     id: idTransaksi,
   };
 
-  const reviewUrl = `/api/review.php`
+  const reviewUrl = `/engima/api/review.php`
   delRequest.open("DELETE", reviewUrl);
   delRequest.send(JSON.stringify(postData));
 
   delRequest.onload = () => {
-    window.location.href = '/transactions';
+    window.location.href = '/engima/transactions';
   };
 }

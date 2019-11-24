@@ -1,6 +1,6 @@
 const request = new XMLHttpRequest();
 const urlParams = new URLSearchParams(window.location.search);
-const url = `/api/detail.php?id=${urlParams.get("id")}`;
+const url = `/engima/api/detail.php?id=${urlParams.get("id")}`;
 
 request.open("GET", url);
 request.send();
@@ -47,7 +47,7 @@ function loadInitialData() {
 
     if (isBookingAvailable) {
       buttonElement.onclick = () => {
-        window.location.href = `/booking?id=${schedule.idSchedule}`;
+        window.location.href = `/engima/booking?id=${schedule.idSchedule}`;
       };
       buttonElement.innerHTML =
         'Book Now <i class="fa fa-chevron-circle-right"></i>';
