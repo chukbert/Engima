@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $result = $db->query($sql);
         $response = $result->fetch_assoc();
 
-        
+        $virtual = generateVA(3)->return;
         $bod = new stdClass();
         $bod->idUser = $idUser;
         $bod->akunVirtual = "3000";
@@ -86,13 +86,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $bod->seatNumber = $seatNumber;
         $bod->waktu = date_format(date_create(), 'Y-m-d H:i:s');
         $bod->status = "pending";
-
+        
         $response = array();
         $response['status'] = 'success';
         $resp = callAPI("POST", "http://13.229.224.101:3000/transaksi", json_encode($bod));
         $response['idTransaksi'] = json_decode($resp, true)["id"];
-        $response['va'] = generateVA(1)->return;
-
+        $response['va'] = $virtual;
+        
         echo json_encode($response);
         return;
     }
