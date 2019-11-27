@@ -127,40 +127,43 @@ async function checkTrans(account, amount, start)
     }
 }
 
-function loadInitialData() {
-  const contentElement = document.querySelector(".content-container");
-  contentElement.innerHTML = '<h3>Transaction History</h3><h4></h4>';
+function loadInitialData()
+{
+    const contentElement = document.querySelector(".content-container");
+    contentElement.innerHTML = '<h3>Transaction History</h3><h4></h4>';
 
-  data.forEach(async(film, i) => {
-    const rowElement = document.createElement("div");
-    rowElement.setAttribute("class", "row");
+    data.forEach(async(film, i) => {
+        const rowElement = document.createElement("div");
+        rowElement.setAttribute("class", "row");
 
-    const imgElement = document.createElement("img");
-    imgElement.src = film.poster; // ganti poster film
-    imgElement.width = 108;
-    imgElement.height = 150;
-    rowElement.appendChild(imgElement);
+        const imgElement = document.createElement("img");
+        imgElement.src = film.poster; // ganti poster film
+        imgElement.width = 108;
+        imgElement.height = 150;
+        rowElement.appendChild(imgElement);
 
-    const movieContainerElement = document.createElement("div");
-    movieContainerElement.setAttribute("class", "movie-container");
+        const movieContainerElement = document.createElement("div");
+        movieContainerElement.setAttribute("class", "movie-container");
 
 
-    let  orderBank = (film.orderTime.replace("T"," ")).replace("Z", "");
-    let  order = film.orderTime;
+        let  orderBank = (film.orderTime.replace("T"," ")).replace("Z", "");
+        let  order = film.orderTime;
 
-if (film.status == 'pending') {
-    console.log(Date.parse(order+'') +120000 < Date.parse(Date()));
-    console.log(order);
-    console.log(Date.parse(order+'') +120000);
-    console.log(Date());
-    console.log(Date.parse(Date()));
-    if (Date.parse(order+'') +120000 < Date.parse(Date())) {
-        changeTrans(film.idTransaksi, "cancelled");
-    } else {
-        let exist = await checkTrans(film.va, 45000,orderBank)
-        console.log(exist)
-        if (exist == true) {
-            changeTrans(film.idTransaksi, "success");
+        if (film.status == 'pending') {
+            console.log(Date.parse(order+'') +120000 < Date.parse(Date()));
+            console.log(order);
+            console.log(Date.parse(order+'') +120000);
+            console.log(Date());
+            console.log(Date.parse(Date()));
+            if (Date.parse(order+'') +120000 < Date.parse(Date())) {
+                changeTrans(film.idTransaksi, "cancelled");
+            } else {
+                let exist = await checkTrans(film.va, 45000,orderBank)
+                console.log(exist)
+                if (exist == true) {
+                    changeTrans(film.idTransaksi, "success");
+                }
+            }
         }
         movieContainerElement.innerHTML = `<div class="movie-name"><h3>${film.title}</h3></div>`;
         movieContainerElement.innerHTML += `<h4><span class="blue">Schedule: </span>${film.datetime}</h4>`;
@@ -171,7 +174,7 @@ if (film.status == 'pending') {
         addEditElement = document.createElement("a");
       
         if (film.status == 'success') {
-        // addEditElement = document.createElement("a");
+            // addEditElement = document.createElement("a");
             if (film.reviewStatus === 'submitted') {
                 movieContainerElement.innerHTML += `<h5>Your review has been submitted.</h5>`;
 
