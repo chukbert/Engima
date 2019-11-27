@@ -102,28 +102,29 @@ function changeTrans(idTransaksi, status)
 //   };
 // }
 
-async function checkTrans(account, amount, start){
-  const url = `/engima/api/checkTransaction.php`;
-  const data = {
-    account: account,
-    amount: amount,
-    start: start
-  };
+async function checkTrans(account, amount, start)
+{
+    const url = `/engima/api/checkTransaction.php`;
+    const data = {
+        account: account,
+        amount: amount,
+        start: start
+    };
 
-try {
-  const response = await fetch(url, {
-    method: 'POST', // or 'PUT'
-    body: JSON.stringify(data), // data can be `string` or {object}!
-    headers: {
-      'Content-Type': 'application/json'
+    try {
+        const response = await fetch(url, {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json();
+        return json.return;
+        console.log('Success:', JSON.stringify(json));
+    } catch (error) {
+        console.error('Error:', error);
     }
-  });
-  const json = await response.json();
-  return json.return;
-  console.log('Success:', JSON.stringify(json));
-} catch (error) {
-  console.error('Error:', error);
-}
 }
 
 function loadInitialData() {
@@ -147,20 +148,19 @@ function loadInitialData() {
     let  orderBank = (film.orderTime.replace("T"," ")).replace("Z", "");
     let  order = film.orderTime;
 
-    if (film.status == 'pending'){
-      console.log(Date.parse(order+'') +120000 < Date.parse(Date()));
-      console.log(order);    
-      console.log(Date.parse(order+'') +120000);
-      console.log(Date());
-      console.log(Date.parse(Date()));
-      if(Date.parse(order+'') +120000 < Date.parse(Date())){
+if (film.status == 'pending') {
+    console.log(Date.parse(order+'') +120000 < Date.parse(Date()));
+    console.log(order);
+    console.log(Date.parse(order+'') +120000);
+    console.log(Date());
+    console.log(Date.parse(Date()));
+    if (Date.parse(order+'') +120000 < Date.parse(Date())) {
         changeTrans(film.idTransaksi, "cancelled");
-      } 
-      else {
+    } else {
         let exist = await checkTrans(film.va, 45000,orderBank)
         console.log(exist)
         if (exist == true) {
-          changeTrans(film.idTransaksi, "success");
+            changeTrans(film.idTransaksi, "success");
         }
         movieContainerElement.innerHTML = `<div class="movie-name"><h3>${film.title}</h3></div>`;
         movieContainerElement.innerHTML += `<h4><span class="blue">Schedule: </span>${film.datetime}</h4>`;
@@ -201,7 +201,6 @@ function loadInitialData() {
             contentElement.appendChild(document.createElement("hr"));
         }
     });
-  
 }
 
 function deleteReview(idTransaksi)
