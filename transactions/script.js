@@ -85,61 +85,82 @@ function changeTrans(idTransaksi, status)
     };
 }
 
-function checkTrans(account, amount, start)
+// function checkTrans(account, amount, start){
+//   const postUrl = `/api/checkTransaction.php`;
+//   var xhr = new XMLHttpRequest();
+//   xhr.open("POST", postUrl);
+//   xhr.send(JSON.stringify({
+//       account: account,
+//       amount: amount,
+//       start: start
+//   }));
+//   xhr.onreadystatechange = () =>{
+//     let resp = JSON.parse(xhr.responseText)
+//     data = resp.return
+//     console.log(data)
+//     return data
+//   };
+// }
+
+async function checkTrans(account, amount, start)
 {
-    const postUrl = `/engima/api/checkTransaction.php`;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", postUrl);
-    xhr.send(JSON.stringify({
+    const url = `/engima/api/checkTransaction.php`;
+    const data = {
         account: account,
         amount: amount,
         start: start
-    }));
-    console.log({
-        account: account,
-        amount: amount,
-        start: start
-    })
-    console.log(Date())
-    xhr.onload = () =>{
-        console.log(xhr.responseText)
-        let resp = JSON.parse(xhr.responseText)
-        data = resp.return
-        return data
     };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json();
+        return json.return;
+        console.log('Success:', JSON.stringify(json));
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
-function loadInitialData()
-{
-    const contentElement = document.querySelector(".content-container");
-    contentElement.innerHTML = '<h3>Transaction History</h3><h4></h4>';
+function loadInitialData() {
+  const contentElement = document.querySelector(".content-container");
+  contentElement.innerHTML = '<h3>Transaction History</h3><h4></h4>';
 
-    data.forEach((film, i) => {
-        const rowElement = document.createElement("div");
-        rowElement.setAttribute("class", "row");
+  data.forEach(async(film, i) => {
+    const rowElement = document.createElement("div");
+    rowElement.setAttribute("class", "row");
 
-        const imgElement = document.createElement("img");
-        imgElement.src = film.poster; // ganti poster film
-        imgElement.width = 108;
-        imgElement.height = 150;
-        rowElement.appendChild(imgElement);
+    const imgElement = document.createElement("img");
+    imgElement.src = film.poster; // ganti poster film
+    imgElement.width = 108;
+    imgElement.height = 150;
+    rowElement.appendChild(imgElement);
 
-        const movieContainerElement = document.createElement("div");
-        movieContainerElement.setAttribute("class", "movie-container");
+    const movieContainerElement = document.createElement("div");
+    movieContainerElement.setAttribute("class", "movie-container");
 
 
-        let  order = (film.orderTime.replace("T"," ")).replace("Z", "");
-        console.log(order)
+    let  orderBank = (film.orderTime.replace("T"," ")).replace("Z", "");
+    let  order = film.orderTime;
 
-        if (film.status == 'pending') {
-            console.log(order)
-            if (Date.parse(order+'') +120000 < Date.parse(Date())) {
-                changeTrans(film.idTransaksi, "cancelled");
-            } else {
-                if (checkTrans(film.va, 45000,order)) {
-                    changeTrans(film.idTransaksi, "success");
-                }
-            }
+if (film.status == 'pending') {
+    console.log(Date.parse(order+'') +120000 < Date.parse(Date()));
+    console.log(order);
+    console.log(Date.parse(order+'') +120000);
+    console.log(Date());
+    console.log(Date.parse(Date()));
+    if (Date.parse(order+'') +120000 < Date.parse(Date())) {
+        changeTrans(film.idTransaksi, "cancelled");
+    } else {
+        let exist = await checkTrans(film.va, 45000,orderBank)
+        console.log(exist)
+        if (exist == true) {
+            changeTrans(film.idTransaksi, "success");
         }
         movieContainerElement.innerHTML = `<div class="movie-name"><h3>${film.title}</h3></div>`;
         movieContainerElement.innerHTML += `<h4><span class="blue">Schedule: </span>${film.datetime}</h4>`;
@@ -180,7 +201,6 @@ function loadInitialData()
             contentElement.appendChild(document.createElement("hr"));
         }
     });
-  
 }
 
 function deleteReview(idTransaksi)

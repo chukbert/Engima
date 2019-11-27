@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $amount = $db->real_escape_string($_POST['amount']);
         $start = $db->real_escape_string($_POST['start']);
         $result = checkTransaction($account, $amount, $start);
+        $result->end = $end;
         echo json_encode($result);
     }
 }
