@@ -1,11 +1,29 @@
 # Engima: Beli Tiket Nonton Online!
-
 ## Deskripsi aplikasi Engima
-TBD
+Setelah melakukan pembuatan Aplikasi web Engima, bioskop engi menjadi sangat laku. Aplikasi web Engima sekarang menggunakan web service untuk "mempermudah" pekerjaanya. Setelah menggunakan web service, aplikasi engima tidak menyimpan database transaksi dan data film. Untuk kebutuhan transaksi dipenuhi oleh web service transaksi sedangakan terkait pembayaran akan menggunakan web service bank yang terhubung dengan aplikasi bank pro. 
 ## Basis data Engima yang telah diubah
-TBD
+- Basis data engima disimpan di Google Cloud Databases
+- Data Film menggunakan The Movie Data Bases
+- Data transaksi didapat dari web service transaksi
 ## Screenshot perubahan tampilan pada Engima
-TBD
+## Login 
+![](__specifications/screenshots/login.png)
+
+## Register
+![](__specifications/screenshots/register.png)
+
+## Home
+![](__specifications/screenshots/home2.png)
+
+## Movie Detail
+![](__specifications/screenshots/detail2.png)
+
+## Transactions
+![](__specifications/screenshots/trans_hist.png)
+
+## Buy Ticket
+![](__specifications/screenshots/buy2.png)
+
 ## Pembagian tugas
 - M. Rifky I. Bariansyah - 13517081
 - Faiz Muhammad Muflich - 13517093
