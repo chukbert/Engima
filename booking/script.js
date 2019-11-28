@@ -1,7 +1,7 @@
 const PAYMENT_SUCCESS =
   "<h2>Booking Success!</h2>" +
   "<p>Thank you for booking! Please continue to payment.</p>" +
-  '<button onclick="window.location.href=\'/transactions\'" class="button">Go to transaction history</button>';
+  '<button onclick="window.location.href=\'/engima/transactions\'" class="button">Go to transaction history</button>';
 const PAYMENT_FAILED =
   '<h2 class="failed">Payment Failed!</h2>' +
   "<p>Someone has just taken your seat! Please choose another seat.</p>";
